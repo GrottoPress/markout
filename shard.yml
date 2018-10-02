@@ -1,0 +1,13 @@
+name: markout
+version: 0.1.0
+
+authors:
+  - GrottoPress <info@grottopress.com>
+  - N Atta Kusi Adusei <attakusiadusei@gmail.com>
+
+crystal: 0.26.1
+
+license: MIT
+
+description: |
+  An awesome Crystal DSL for HTML

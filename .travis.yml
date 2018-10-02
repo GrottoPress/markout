@@ -1,0 +1,21 @@
+language: crystal
+dist: trusty
+sudo: false
+
+crystal:
+  - latest
+  - nightly
+
+install: shards install
+
+script:
+  - crystal spec
+
+matrix:
+  fast_finish: true
+  allow_failures:
+    - crystal: nightly
+
+cache:
+  directories:
+    - lib
