@@ -70,7 +70,7 @@ server.listen
 
 ## Handy methods
 
-Apart from calling regular HTML tags as methods, the following methos are available:
+Apart from calling regular HTML tags as methods, the following methods are available:
 
 - `#text(text : String)`: Use this to escape text
 - `#raw(text : String)`: Use this for unmodified text
@@ -122,7 +122,7 @@ end
 
 ## Alternatives
 
-Check the following out if **Markout** does not fit your needs:
+Check out the following, if **Markout** does not fit your needs:
 
 - [crystal-lang/html_builder](https://github.com/crystal-lang/html_builder)
 - [Lucky framework](https://luckyframework.org/guides/rendering-html/) comes with an in-built html builder.
