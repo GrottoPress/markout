@@ -2,13 +2,13 @@ abstract class Markout::BaseTemplate
   def to_s(io : IO) : Nil
     io << doctype
     io << markout do
-      html **html_tag_attr do
-        head **head_tag_attr do
-          meta charset: charset
+      html **self.html_tag_attr do
+        head **self.head_tag_attr do
+          meta charset: self.charset
           raw self.inside_head.to_s
         end
 
-        body **body_tag_attr do
+        body **self.body_tag_attr do
           raw self.inside_body.to_s
         end
       end
