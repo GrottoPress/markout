@@ -124,9 +124,7 @@ describe Markout do
   describe "#div" do
     context "called without a block" do
       it "raises an exception" do
-        expect_raises Exception do
-          markout { div id: "my-div" }.to_s
-        end
+        markout { div id: "my-div" }.to_s.should eq("<div id='my-div'></div>")
       end
     end
 

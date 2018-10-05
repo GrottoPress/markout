@@ -40,9 +40,11 @@ class Markout
     end
 
     private def {{tag.id}}(**attr) : Nil
-      raise "'{{tag.id}}' is a non-void tag!" if NON_VOID_TAGS.includes? {{tag}}
-
-      @nodes << "<{{tag.id}}#{build_attrs(attr)} />"
+      if NON_VOID_TAGS.includes? {{tag}}
+        @nodes << "<{{tag.id}}#{build_attrs(attr)}></{{tag.id}}>"
+      else
+        @nodes << "<{{tag.id}}#{build_attrs(attr)} />"
+      end
     end
   {% end %}
 
