@@ -4,7 +4,6 @@ abstract class Markout::BaseTemplate
     io << markout do
       html **self.html_tag_attr do
         head **self.head_tag_attr do
-          meta charset: self.charset
           raw self.inside_head.to_s
         end
 
@@ -34,8 +33,4 @@ abstract class Markout::BaseTemplate
   private abstract def inside_head : Markout
 
   private abstract def inside_body : Markout
-
-  private def charset : String
-    "UTF-8"
-  end
 end

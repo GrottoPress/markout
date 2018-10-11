@@ -1,9 +1,9 @@
 class MyPage < BasePage
-  private def inside_head : Markout
+  private def head_content : Markout
     markout { title { text "Brrrr!" } }
   end
 
-  private def content : Markout
+  private def body_content : Markout
     markout { p { text "Hello from markout!" } }
   end
 end

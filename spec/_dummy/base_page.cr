@@ -7,6 +7,13 @@ abstract class BasePage < Markout::BaseTemplate
     {class: "my-body-class"}
   end
 
+  private def inside_head : Markout
+    markout do
+      meta charset: "UTF-8"
+      raw self.head_content.to_s
+    end
+  end
+
   private def inside_body : Markout
     markout do
       header id: "header" do
@@ -14,7 +21,7 @@ abstract class BasePage < Markout::BaseTemplate
         p { text "An awesome description" }
       end
 
-      raw self.content.to_s
+      raw self.body_content.to_s
 
       footer id: "footer" do
         raw "<!-- I'm unescaped -->"
@@ -22,5 +29,7 @@ abstract class BasePage < Markout::BaseTemplate
     end
   end
 
-  private abstract def content : Markout
+  private abstract def head_content : Markout
+
+  private abstract def body_content : Markout
 end

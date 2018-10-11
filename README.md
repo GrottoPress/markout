@@ -62,7 +62,7 @@ server = HTTP::Server.new do |context|
   context.response.print m
 end
 
-puts "Listening on http://#{server.bind_tcp 8080}"
+puts "Listening on http://#{server.bind_tcp(8080)}"
 server.listen
 
 # Open your browser and visit 'http://localhost:8080' to see Markout in action
@@ -88,6 +88,13 @@ abstract class BasePage < Markout::BaseTemplate
     {class: "my-body-class"}
   end
 
+  private def inside_head : Markout
+    markout do
+      meta charset: "UTF-8"
+      raw self.head_content.to_s
+    end
+  end
+
   private def inside_body : Markout
     markout do
       header id: "header" do
@@ -95,7 +102,7 @@ abstract class BasePage < Markout::BaseTemplate
         p { text "An awesome description" }
       end
 
-      raw self.content.to_s
+      raw self.body_content.to_s
 
       footer id: "footer" do
         raw "<!-- I'm unescaped -->"
@@ -103,17 +110,23 @@ abstract class BasePage < Markout::BaseTemplate
     end
   end
 
-  private abstract def content : Markout
+  private abstract def head_content : Markout
+
+  private abstract def body_content : Markout
 end
 
 # Now, create a page
 class MyFirstPage < BasePage
-  private def inside_head : Markout
-    markout { title { text "Brrrr!" } }
+  private def head_content : Markout
+    markout do
+      title { text "Brrrr!" }
+    end
   end
 
-  private def content : Markout
-    markout { p { text "Hello from markout!" } }
+  private def body_content : Markout
+    markout do
+      p { text "Hello from markout!" }
+    end
   end
 end
 

@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Changed
 - Explicitly assign a receiver to instance methods called inside `with ... yield` block
 - Allow creating non-void elements without passing a block
+- Remove pre-defined charset meta element in base template
 
 ## 0.1.0 - 2018-10-02
 
