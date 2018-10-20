@@ -113,7 +113,7 @@ describe Markout do
     end
 
     context "called without a block" do
-      it "returns valid element" do
+      it "returns valid 'link' element" do
         markout { link rel: "stylesheet", href: "http://ab.c" }.to_s.should eq(
           "<link rel='stylesheet' href='http://ab.c' />"
         )
@@ -123,7 +123,7 @@ describe Markout do
 
   describe "#div" do
     context "called without a block" do
-      it "raises an exception" do
+      it "returns a valid, closed 'div' element" do
         markout { div id: "my-div" }.to_s.should eq("<div id='my-div'></div>")
       end
     end
