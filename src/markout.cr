@@ -5,7 +5,7 @@ class Markout
   @nodes = [] of String
 
   def initialize(@version : String = "html_5")
-    validate_doctype
+    validate_version
   end
 
   def to_s(io : IO) : Nil
@@ -62,9 +62,8 @@ class Markout
     @nodes << text
   end
 
-  private def validate_doctype
-    doctypes = {
-      "html_5",
+  private def validate_version
+    versions = {
       "html_4_01_strict",
       "html_4_01_transitional",
       "html_4_01_frameset",
@@ -75,8 +74,9 @@ class Markout
       "html_5"
     }
 
-    unless doctypes.includes? @version
-      raise ArgumentError.new "Doctype invalid!"
+    unless versions.includes? @version
+      raise ArgumentError.new "`#{@version}` is not a valid version. \
+        Accepted versions include: `#{versions.join("`, `")}`."
     end
   end
 
