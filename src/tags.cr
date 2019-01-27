@@ -1,5 +1,5 @@
 class Markout
-  VOID_TAGS = %i(
+  private VOID_TAGS = %i(
     area
     base
     br
@@ -16,7 +16,7 @@ class Markout
     wbr
   )
 
-  NON_VOID_TAGS = %i(
+  private NON_VOID_TAGS = %i(
     a
     abbr
     address
