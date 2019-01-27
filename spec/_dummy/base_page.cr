@@ -7,29 +7,25 @@ abstract class BasePage < Markout::BaseTemplate
     {class: "my-body-class"}
   end
 
-  private def inside_head : Markout
-    markout do
-      meta charset: "UTF-8"
-      raw self.head_content.to_s
+  private def inside_head(m : Markout) : Nil
+    m.meta charset: "UTF-8"
+    head_content m
+  end
+
+  private def inside_body(m : Markout) : Nil
+    m.header id: "header" do |m|
+      m.h1 &.text "My First Heading Level"
+      m.p &.text "An awesome description"
+    end
+
+    body_content m
+
+    m.footer id: "footer" do |m|
+      m.raw "<!-- I'm unescaped -->"
     end
   end
 
-  private def inside_body : Markout
-    markout do
-      header id: "header" do
-        h1 { text "My First Heading Level" }
-        p { text "An awesome description" }
-      end
+  private abstract def head_content(m : Markout) : Nil
 
-      raw self.body_content.to_s
-
-      footer id: "footer" do
-        raw "<!-- I'm unescaped -->"
-      end
-    end
-  end
-
-  private abstract def head_content : Markout
-
-  private abstract def body_content : Markout
+  private abstract def body_content(m : Markout) : Nil
 end

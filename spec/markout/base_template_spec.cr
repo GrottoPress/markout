@@ -9,7 +9,7 @@ describe Markout::BaseTemplate do
           <!DOCTYPE html>\
           <html lang='en'>\
             <head profile='http://ab.c'>\
-              <meta charset='UTF-8' />\
+              <meta charset='UTF-8'>\
               <title>Brrrr!</title>\
             </head>\
             <body class='my-body-class'>\

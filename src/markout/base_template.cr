@@ -1,21 +1,20 @@
 abstract class Markout::BaseTemplate
-  def to_s(io : IO) : Nil
-    io << doctype
-    io << markout do
-      html **self.html_tag_attr do
-        head **self.head_tag_attr do
-          raw self.inside_head.to_s
-        end
-
-        body **self.body_tag_attr do
-          raw self.inside_body.to_s
-        end
-      end
-    end
+  def initialize(@m : Markout = Markout.new)
   end
 
-  private def doctype : Markout
-    markout { doctype "html_5" }
+  def to_s(io : IO) : Nil
+    @m.doctype
+    @m.html **html_tag_attr do |m|
+      m.head **head_tag_attr do |m|
+        inside_head m
+      end
+
+      m.body **body_tag_attr do |m|
+        inside_body m
+      end
+    end
+
+    io << @m.to_s
   end
 
   private def html_tag_attr : NamedTuple
@@ -30,7 +29,7 @@ abstract class Markout::BaseTemplate
     NamedTuple.new
   end
 
-  private abstract def inside_head : Markout
+  private abstract def inside_head(m : Markout) : Nil
 
-  private abstract def inside_body : Markout
+  private abstract def inside_body(m : Markout) : Nil
 end

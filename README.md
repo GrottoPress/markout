@@ -6,6 +6,8 @@
 - Automatically escaped attributes
 - Accurate, valid syntax
 
+Markout supports HTML 4, 5 and XHTML
+
 ## Installation
 
 Add this to your application's `shard.yml`:
@@ -21,28 +23,28 @@ dependencies:
 ```crystal
 require "markout"
 
-m = markout do
-  doctype "html_5"
+m = Markout.new "html_5"
 
-  html lang: "en" do
-    head do
-      meta charset: "utf-8"
-      title { text "Markout is awesome!" }
+m.doctype
+
+m.html lang: "en" do |m|
+  m.head do |m|
+    m.meta charset: "utf-8"
+    m.title &.text "Markout is awesome!"
+  end
+
+  m.body class: "my-body-class", data_foo: "bar" do |m|
+    m.header id: "header" do |m|
+      m.h1 &.text "Hello, world!"
+      m.p &.text "Hello from markout :-)"
     end
 
-    body class: "my-body-class", data_foo: "bar" do
-      header id: "header" do
-        h1 { text "Hello, world!" }
-        p { text "Hello from markout :-)" }
-      end
+    m.div id: "content" do |m|
+      m.p &.text "Markout is an awesome Crystal DSL for HTML."
 
-      div id: "content" do
-        p { text "Markout is an awesome Crystal DSL for HTML." }
-
-        ul class: "numbers" do
-          3.times do |i|
-            li { text "Number #{i + 1}" }
-          end
+      m.ul class: "numbers" do |m|
+        3.times do |i|
+          m.li &.text "Number #{i + 1}"
         end
       end
     end
@@ -51,7 +53,28 @@ end
 
 # SEND OUTPUT TO CONSOLE
 
-puts m # => <!DOCTYPE html><html lang='en'><head><meta charset='utf-8' /><title>Markout is awesome!</title></head><body class='my-body-class' data-foo='bar'><header id='header'><h1>Hello, world!</h1><p>Hello from markout :-)</p></header><div id='content'><p>Markout is an awesome Crystal DSL for HTML.</p><ul class='numbers'><li>Number 1</li><li>Number 2</li><li>Number 3</li></ul></div></body></html>
+puts m
+# => <!DOCTYPE html>\
+# => <html lang='en'>\
+# =>   <head>\
+# =>     <meta charset='utf-8'>\
+# =>     <title>Markout is awesome!</title>\
+# =>   </head>
+# =>   <body class='my-body-class' data-foo='bar'>\
+# =>     <header id='header'>\
+# =>       <h1>Hello, world!</h1>\
+# =>       <p>Hello from markout :-)</p>\
+# =>     </header>\
+# =>     <div id='content'>\
+# =>       <p>Markout is an awesome Crystal DSL for HTML.</p>\
+# =>       <ul class='numbers'>\
+# =>         <li>Number 1</li>\
+# =>         <li>Number 2</li>\
+# =>         <li>Number 3</li>\
+# =>       </ul>\
+# =>     </div>\
+# =>   </body>\
+# => </html>
 
 # OR, SERVE IT TO THE BROWSER
 
@@ -63,6 +86,7 @@ server = HTTP::Server.new do |context|
 end
 
 puts "Listening on http://#{server.bind_tcp(8080)}"
+
 server.listen
 
 # Open your browser and visit 'http://localhost:8080' to see Markout in action
@@ -88,45 +112,37 @@ abstract class BasePage < Markout::BaseTemplate
     {class: "my-body-class"}
   end
 
-  private def inside_head : Markout
-    markout do
-      meta charset: "UTF-8"
-      raw self.head_content.to_s
+  private def inside_head(m : Markout) : Nil
+    m.meta charset: "UTF-8"
+    head_content m
+  end
+
+  private def inside_body(m : Markout) : Nil
+    m.header id: "header" do |m|
+      m.h1 &.text "My First Heading Level"
+      m.p &.text "An awesome description"
+    end
+
+    body_content m
+
+    m.footer id: "footer" do |m|
+      m.raw "<!-- I'm unescaped -->"
     end
   end
 
-  private def inside_body : Markout
-    markout do
-      header id: "header" do
-        h1 { text "My First Heading Level" }
-        p { text "An awesome description" }
-      end
+  private abstract def head_content(m : Markout) : Nil
 
-      raw self.body_content.to_s
-
-      footer id: "footer" do
-        raw "<!-- I'm unescaped -->"
-      end
-    end
-  end
-
-  private abstract def head_content : Markout
-
-  private abstract def body_content : Markout
+  private abstract def body_content(m : Markout) : Nil
 end
 
 # Now, create a page
 class MyFirstPage < BasePage
-  private def head_content : Markout
-    markout do
-      title { text "Brrrr!" }
-    end
+  private def head_content(m : Markout) : Nil
+    m.title &.text "Brrrr!"
   end
 
-  private def body_content : Markout
-    markout do
-      p { text "Hello from markout!" }
-    end
+  private def body_content(m : Markout) : Nil
+    m.p &.text "Hello from markout!"
   end
 end
 
