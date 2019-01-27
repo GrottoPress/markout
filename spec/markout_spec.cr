@@ -128,16 +128,6 @@ describe Markout do
   end
 
   describe "#link" do
-    context "called with block" do
-      it "raises an exception" do
-        expect_raises Exception do
-          m = Markout.new
-          m.link {}
-          m.to_s
-        end
-      end
-    end
-
     context "called without a block" do
       it "returns valid 'link' element" do
         m = Markout.new

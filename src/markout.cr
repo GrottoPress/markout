@@ -33,22 +33,24 @@ class Markout
     end
   end
 
-  {% for tag in TAGS %}
+  {% for tag in VOID_TAGS %}
     def {{ tag.id }}(**attr) : Nil
-      raise "'{{ tag.id }}' is a void tag!" if VOID_TAGS.includes? {{ tag }}
-
-      yield (m = self.class.new @version)
-      @nodes << "<{{ tag.id }}#{build_attrs(attr)}>#{m}</{{ tag.id }}>"
-    end
-
-    def {{ tag.id }}(**attr) : Nil
-      if NON_VOID_TAGS.includes? {{ tag }}
-        @nodes << "<{{ tag.id }}#{build_attrs(attr)}></{{ tag.id }}>"
-      elsif @version.starts_with? "xhtml_"
+      if @version.starts_with? "xhtml_"
         @nodes << "<{{ tag.id }}#{build_attrs(attr)} />"
       else
         @nodes << "<{{ tag.id }}#{build_attrs(attr)}>"
       end
+    end
+  {% end %}
+
+  {% for tag in NON_VOID_TAGS %}
+    def {{ tag.id }}(**attr) : Nil
+      @nodes << "<{{ tag.id }}#{build_attrs(attr)}></{{ tag.id }}>"
+    end
+
+    def {{ tag.id }}(**attr) : Nil
+      yield (m = self.class.new @version)
+      @nodes << "<{{ tag.id }}#{build_attrs(attr)}>#{m}</{{ tag.id }}>"
     end
   {% end %}
 
