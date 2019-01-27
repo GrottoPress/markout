@@ -93,4 +93,4 @@ class Markout
   end
 end
 
-require "./markout/base_template"
+require "./markout/template/base"

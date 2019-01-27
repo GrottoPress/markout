@@ -1,4 +1,4 @@
-abstract class Markout::BaseTemplate
+abstract class Markout::Template::Base
   def initialize(@m : Markout = Markout.new)
   end
 

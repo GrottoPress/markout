@@ -1,6 +1,6 @@
-require "../spec_helper"
+require "../../spec_helper"
 
-describe Markout::BaseTemplate do
+describe Markout::Template::Base do
   describe MyPage do
     describe "#to_s" do
       it "renders page markup accurately" do

@@ -107,7 +107,7 @@ Apart from calling regular HTML tags as methods, the following methods are avail
 require "markout"
 
 # Create your own base page
-abstract class BasePage < Markout::BaseTemplate
+abstract class BasePage < Markout::Template::Base
   private def body_tag_attr : NamedTuple
     {class: "my-body-class"}
   end
