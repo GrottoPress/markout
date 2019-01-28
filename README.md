@@ -23,7 +23,7 @@ dependencies:
 ```crystal
 require "markout"
 
-m = Markout.new "html_5"
+m = Markout.new Markout::Version::HTML_5
 
 m.doctype
 
@@ -146,7 +146,7 @@ class MyFirstPage < BasePage
   end
 end
 
-m = Markout.new "xhtml_1_1"
+m = Markout.new Markout::Version::XHTML_1_1
 my_first_page = MyFirstPage.new m
 
 #puts my_first_page

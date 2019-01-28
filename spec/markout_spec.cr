@@ -2,17 +2,9 @@ require "./spec_helper"
 
 describe Markout do
   describe "#doctype" do
-    context "given an invalid doctype" do
-      it "raises an exception" do
-        expect_raises ArgumentError do
-          Markout.new "invalid"
-        end
-      end
-    end
-
     context "given an 'html_5' doctype" do
       it "returns valid html 5 doctype" do
-        m = Markout.new "html_5"
+        m = Markout.new Markout::Version::HTML_5
         m.doctype
         m.to_s.should eq("<!DOCTYPE html>")
       end
@@ -20,7 +12,7 @@ describe Markout do
 
     context "given an 'html_4_01_strict' doctype" do
       it "returns valid html 4.01 strict doctype" do
-        m = Markout.new "html_4_01_strict"
+        m = Markout.new Markout::Version::HTML_4_01_Strict
         m.doctype
         m.to_s.should eq(
           "<!DOCTYPE HTML PUBLIC '-//W3C//DTD HTML 4.01//EN' 'http://www.w3.org/TR/html4/strict.dtd'>"
@@ -30,7 +22,7 @@ describe Markout do
 
     context "given an 'html_4_01_transitional' doctype" do
       it "returns valid html 4.01 transitional doctype" do
-        m = Markout.new "html_4_01_transitional"
+        m = Markout.new Markout::Version::HTML_4_01_Trans
         m.doctype
         m.to_s.should eq(
           "<!DOCTYPE HTML PUBLIC '-//W3C//DTD HTML 4.01 Transitional//EN' 'http://www.w3.org/TR/html4/loose.dtd'>"
@@ -40,7 +32,7 @@ describe Markout do
 
     context "given an 'html_4_01_frameset' doctype" do
       it "returns valid html 4.01 frameset doctype" do
-        m = Markout.new "html_4_01_frameset"
+        m = Markout.new Markout::Version::HTML_4_01_Frame
         m.doctype
         m.to_s.should eq(
           "<!DOCTYPE HTML PUBLIC '-//W3C//DTD HTML 4.01 Frameset//EN' 'http://www.w3.org/TR/html4/frameset.dtd'>"
@@ -50,7 +42,7 @@ describe Markout do
 
     context "given an 'xhtml_1_0_strict' doctype" do
       it "returns valid xhtml 1.0 strict doctype" do
-        m = Markout.new "xhtml_1_0_strict"
+        m = Markout.new Markout::Version::XHTML_1_0_Strict
         m.doctype
         m.to_s.should eq(
           "<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>"
@@ -60,7 +52,7 @@ describe Markout do
 
     context "given an 'xhtml_1_0_transitional' doctype" do
       it "returns valid xhtml 1.0 transitional doctype" do
-        m = Markout.new "xhtml_1_0_transitional"
+        m = Markout.new Markout::Version::XHTML_1_0_Trans
         m.doctype
         m.to_s.should eq(
           "<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd>"
@@ -70,7 +62,7 @@ describe Markout do
 
     context "given an 'xhtml_1_0_frameset' doctype" do
       it "returns valid xhtml 1.0 frameset doctype" do
-        m = Markout.new "xhtml_1_0_frameset"
+        m = Markout.new Markout::Version::XHTML_1_0_Frame
         m.doctype
         m.to_s.should eq(
           "<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Frameset//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd'>"
@@ -80,7 +72,7 @@ describe Markout do
 
     context "given an 'xhtml_1_1' doctype" do
       it "returns valid xhtml 1.1 doctype" do
-        m = Markout.new "xhtml_1_1"
+        m = Markout.new Markout::Version::XHTML_1_1
         m.doctype
         m.to_s.should eq(
           "<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.1//EN' 'http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd'>"
@@ -142,7 +134,7 @@ describe Markout do
   describe "#meta" do
     context "given an xhtml doctype" do
       it "returns valid xhtml 'meta' element" do
-        m = Markout.new "xhtml_1_0_strict"
+        m = Markout.new Markout::Version::XHTML_1_0_Strict
         m.meta name: "abc", href: "http://ab.c"
         m.to_s.should eq(
           "<meta name='abc' href='http://ab.c' />"
@@ -152,7 +144,7 @@ describe Markout do
 
     context "given an 'html_4' doctype" do
       it "returns valid html_4 'meta' element" do
-        m = Markout.new "html_4_01_strict"
+        m = Markout.new Markout::Version::HTML_4_01_Strict
         m.meta name: "abc", href: "http://ab.c"
         m.to_s.should eq(
           "<meta name='abc' href='http://ab.c'>"

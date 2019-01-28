@@ -4,8 +4,18 @@ require "./tags"
 class Markout
   @nodes = [] of String
 
-  def initialize(@version : String = "html_5")
-    validate_version
+  enum Version
+    HTML_4_01_Strict,
+    HTML_4_01_Trans,
+    HTML_4_01_Frame,
+    XHTML_1_0_Strict,
+    XHTML_1_0_Trans,
+    XHTML_1_0_Frame,
+    XHTML_1_1,
+    HTML_5
+  end
+
+  def initialize(@version : Version = Version::HTML_5)
   end
 
   def to_s(io : IO) : Nil
@@ -14,28 +24,28 @@ class Markout
 
   def doctype : Nil
     case @version
-    when "html_4_01_strict"
+    when .html_4_01_strict?
       @nodes << "<!DOCTYPE HTML PUBLIC '-//W3C//DTD HTML 4.01//EN' 'http://www.w3.org/TR/html4/strict.dtd'>"
-    when "html_4_01_transitional"
+    when .html_4_01_trans?
       @nodes << "<!DOCTYPE HTML PUBLIC '-//W3C//DTD HTML 4.01 Transitional//EN' 'http://www.w3.org/TR/html4/loose.dtd'>"
-    when "html_4_01_frameset"
+    when .html_4_01_frame?
       @nodes << "<!DOCTYPE HTML PUBLIC '-//W3C//DTD HTML 4.01 Frameset//EN' 'http://www.w3.org/TR/html4/frameset.dtd'>"
-    when "xhtml_1_0_strict"
+    when .xhtml_1_0_strict?
       @nodes << "<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>"
-    when "xhtml_1_0_transitional"
+    when .xhtml_1_0_trans?
       @nodes << "<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd>"
-    when "xhtml_1_0_frameset"
+    when .xhtml_1_0_frame?
       @nodes << "<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Frameset//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd'>"
-    when "xhtml_1_1"
+    when .xhtml_1_1?
       @nodes << "<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.1//EN' 'http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd'>"
-    else "html_5"
+    else
       @nodes << "<!DOCTYPE html>"
     end
   end
 
   {% for tag in VOID_TAGS %}
     def {{ tag.id }}(**attr) : Nil
-      if @version.starts_with? "xhtml_"
+      if xhtml?
         @nodes << "<{{ tag.id }}#{build_attrs(attr)} />"
       else
         @nodes << "<{{ tag.id }}#{build_attrs(attr)}>"
@@ -62,22 +72,11 @@ class Markout
     @nodes << text
   end
 
-  private def validate_version
-    versions = {
-      "html_4_01_strict",
-      "html_4_01_transitional",
-      "html_4_01_frameset",
-      "xhtml_1_0_strict",
-      "xhtml_1_0_transitional",
-      "xhtml_1_0_frameset",
-      "xhtml_1_1",
-      "html_5"
-    }
-
-    unless versions.includes? @version
-      raise ArgumentError.new "`#{@version}` is not a valid version. \
-        Accepted versions include: `#{versions.join("`, `")}`."
-    end
+  private def xhtml? : Bool
+    @version.xhtml_1_0_frame? ||
+    @version.xhtml_1_0_strict? ||
+    @version.xhtml_1_0_trans? ||
+    @version.xhtml_1_1?
   end
 
   private def build_attrs(attrs : NamedTuple = NamedTuple.new) : String
