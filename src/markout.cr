@@ -81,10 +81,7 @@ class Markout
   end
 
   private def xhtml? : Bool
-    @version.xhtml_1_0_frame? ||
-    @version.xhtml_1_0_strict? ||
-    @version.xhtml_1_0_trans? ||
-    @version.xhtml_1_1?
+    @version.to_s.starts_with? "XHTML_"
   end
 
   private def build_attrs(attrs : NamedTuple = NamedTuple.new) : String
