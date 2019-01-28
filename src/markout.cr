@@ -8,11 +8,11 @@ class Markout
     HTML_4_01_Strict,
     HTML_4_01_Trans,
     HTML_4_01_Frame,
+    HTML_5,
     XHTML_1_0_Strict,
     XHTML_1_0_Trans,
     XHTML_1_0_Frame,
-    XHTML_1_1,
-    HTML_5
+    XHTML_1_1
   end
 
   def initialize(@version : Version = Version::HTML_5)
