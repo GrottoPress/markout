@@ -146,7 +146,10 @@ class MyFirstPage < BasePage
   end
 end
 
-#puts MyFirstPage.new
+m = Markout.new "xhtml_1_1"
+my_first_page = MyFirstPage.new m
+
+#puts my_first_page
 ```
 
 ## Alternatives
