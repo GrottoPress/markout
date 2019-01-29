@@ -4,7 +4,7 @@ private alias Version = Markout::Version
 
 describe Markout do
   describe "#doctype" do
-    context "given an 'html_5' doctype" do
+    context "given an html 5 version" do
       it "returns valid html 5 doctype" do
         m = Markout.new Version::HTML_5
         m.doctype
@@ -12,7 +12,7 @@ describe Markout do
       end
     end
 
-    context "given an 'html_4_01_strict' doctype" do
+    context "given an html 4.01 strict version" do
       it "returns valid html 4.01 strict doctype" do
         m = Markout.new Version::HTML_4_01_Strict
         m.doctype
@@ -22,7 +22,7 @@ describe Markout do
       end
     end
 
-    context "given an 'html_4_01_transitional' doctype" do
+    context "given an html 4.01 transitional version" do
       it "returns valid html 4.01 transitional doctype" do
         m = Markout.new Version::HTML_4_01_Trans
         m.doctype
@@ -32,7 +32,7 @@ describe Markout do
       end
     end
 
-    context "given an 'html_4_01_frameset' doctype" do
+    context "given an html 4.01 frameset version" do
       it "returns valid html 4.01 frameset doctype" do
         m = Markout.new Version::HTML_4_01_Frame
         m.doctype
@@ -42,7 +42,7 @@ describe Markout do
       end
     end
 
-    context "given an 'xhtml_1_0_strict' doctype" do
+    context "given an xhtml 1.0 strict version" do
       it "returns valid xhtml 1.0 strict doctype" do
         m = Markout.new Version::XHTML_1_0_Strict
         m.doctype
@@ -52,7 +52,7 @@ describe Markout do
       end
     end
 
-    context "given an 'xhtml_1_0_transitional' doctype" do
+    context "given an xhtml 1.0 transitional version" do
       it "returns valid xhtml 1.0 transitional doctype" do
         m = Markout.new Version::XHTML_1_0_Trans
         m.doctype
@@ -62,7 +62,7 @@ describe Markout do
       end
     end
 
-    context "given an 'xhtml_1_0_frameset' doctype" do
+    context "given an xhtml 1.0 frameset version" do
       it "returns valid xhtml 1.0 frameset doctype" do
         m = Markout.new Version::XHTML_1_0_Frame
         m.doctype
@@ -72,7 +72,7 @@ describe Markout do
       end
     end
 
-    context "given an 'xhtml_1_1' doctype" do
+    context "given an xhtml 1.1 version" do
       it "returns valid xhtml 1.1 doctype" do
         m = Markout.new Version::XHTML_1_1
         m.doctype
@@ -134,7 +134,7 @@ describe Markout do
   end
 
   describe "#meta" do
-    context "given an xhtml doctype" do
+    context "given an xhtml version" do
       it "returns valid xhtml 'meta' element" do
         m = Markout.new Version::XHTML_1_0_Strict
         m.meta name: "abc", href: "http://ab.c"
@@ -144,8 +144,8 @@ describe Markout do
       end
     end
 
-    context "given an 'html_4' doctype" do
-      it "returns valid html_4 'meta' element" do
+    context "given an html 4 version" do
+      it "returns valid html 4 'meta' element" do
         m = Markout.new Version::HTML_4_01_Strict
         m.meta name: "abc", href: "http://ab.c"
         m.to_s.should eq(
