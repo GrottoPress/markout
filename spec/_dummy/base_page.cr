@@ -3,7 +3,7 @@ abstract class BasePage < Markout::Template::Base
     {profile: "http://ab.c"}
   end
 
-  private def body_tag_attr
+  private def body_tag_attr : NamedTuple
     {class: "my-body-class"}
   end
 
