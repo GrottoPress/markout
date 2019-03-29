@@ -1,25 +1,41 @@
 class Markout
-  TAGS = %i(
+  private VOID_TAGS = %i(
+    area
+    base
+    br
+    col
+    embed
+    frame
+    hr
+    img
+    input
+    link
+    meta
+    param
+    source
+    track
+    wbr
+  )
+
+  private NON_VOID_TAGS = %i(
     a
     abbr
+    acronym
     address
-    area
     article
     aside
     audio
     b
-    base
     bdi
     bdo
+    big
     blockquote
     body
-    br
     button
     canvas
     caption
     cite
     code
-    col
     colgroup
     data
     datalist
@@ -32,12 +48,12 @@ class Markout
     dl
     dt
     em
-    embed
     fieldset
     figcaption
     figure
     footer
     form
+    frameset
     h1
     h2
     h3
@@ -46,24 +62,20 @@ class Markout
     h6
     head
     header
-    hr
     html
     i
     iframe
-    img
-    input
     ins
     kbd
     label
     legend
     li
-    link
     main
     mark
     map
-    meta
     meter
     nav
+    noframes
     noscript
     object
     ol
@@ -71,7 +83,6 @@ class Markout
     option
     output
     p
-    param
     pre
     progress
     q
@@ -86,7 +97,6 @@ class Markout
     script
     section
     small
-    source
     span
     strong
     style
@@ -104,30 +114,48 @@ class Markout
     time
     title
     tr
-    track
+    tt
     u
     ul
     var
     video
-    wbr
   )
 
-  VOID_TAGS = %i(
-    area
-    base
-    br
-    col
+  private HTML_4_01_TAGS = %i(
+    acronym
+    big
+    frame
+    frameset
+    noframes
+    tt
+  )
+
+  private HTML_5_TAGS = %i(
+    article
+    aside
+    audio
+    bdi
+    canvas
+    datalist
+    details
     embed
-    hr
-    img
-    input
-    link
-    meta
-    param
+    figcaption
+    figure
+    footer
+    header
+    mark
+    meter
+    nav
+    output
+    progress
+    rp
+    rt
+    ruby
+    section
     source
-    track
+    summary
+    time
+    video
     wbr
   )
-
-  NON_VOID_TAGS = TAGS - VOID_TAGS
 end
