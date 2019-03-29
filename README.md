@@ -59,7 +59,7 @@ puts m
 # =>   <head>\
 # =>     <meta charset='utf-8'>\
 # =>     <title>Markout is awesome!</title>\
-# =>   </head>
+# =>   </head>\
 # =>   <body class='my-body-class' data-foo='bar'>\
 # =>     <header id='header'>\
 # =>       <h1>Hello, world!</h1>\
