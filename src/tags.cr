@@ -5,6 +5,7 @@ class Markout
     br
     col
     embed
+    frame
     hr
     img
     input
@@ -19,6 +20,7 @@ class Markout
   private NON_VOID_TAGS = %i(
     a
     abbr
+    acronym
     address
     article
     aside
@@ -26,6 +28,7 @@ class Markout
     b
     bdi
     bdo
+    big
     blockquote
     body
     button
@@ -50,6 +53,7 @@ class Markout
     figure
     footer
     form
+    frameset
     h1
     h2
     h3
@@ -71,6 +75,7 @@ class Markout
     map
     meter
     nav
+    noframes
     noscript
     object
     ol
@@ -109,9 +114,48 @@ class Markout
     time
     title
     tr
+    tt
     u
     ul
     var
     video
+  )
+
+  private HTML_4_01_TAGS = %i(
+    acronym
+    big
+    frame
+    frameset
+    noframes
+    tt
+  )
+
+  private HTML_5_TAGS = %i(
+    article
+    aside
+    audio
+    bdi
+    canvas
+    datalist
+    details
+    embed
+    figcaption
+    figure
+    footer
+    header
+    mark
+    meter
+    nav
+    output
+    progress
+    rp
+    rt
+    ruby
+    section
+    source
+    summary
+    time
+    video
+    wbr
   )
 end

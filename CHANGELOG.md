@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Unreleased
 
+### Added
+- Add a cursory validation for HTML tags
+
 ### Changed
 - Use `yield...` instead of `with...yield` for building HTML
 - Rename `Markout::BaseTemplate` to `Markout::Template::Base`

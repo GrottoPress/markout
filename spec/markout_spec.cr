@@ -43,6 +43,44 @@ describe Markout do
     end
   end
 
+  describe "#validate_tag" do
+    context "given HTML 4 tag for HTML 5" do
+      it "raises an exception" do
+        expect_raises Exception do
+          m = Markout.new
+          m.big
+        end
+      end
+    end
+
+    context "given HTML 5 tag for HTML 4" do
+      it "raises an exception" do
+        expect_raises Exception do
+          m = Markout.new Version::HTML_4_01
+          m.article
+        end
+      end
+    end
+
+    context "given HTML 5 tag for XHTML 1.0" do
+      it "raises an exception" do
+        expect_raises Exception do
+          m = Markout.new Version::XHTML_1_0
+          m.article
+        end
+      end
+    end
+
+    context "given HTML 5 tag for XHTML 1.1" do
+      it "raises an exception" do
+        expect_raises Exception do
+          m = Markout.new Version::XHTML_1_0
+          m.aside
+        end
+      end
+    end
+  end
+
   describe "#text" do
     context "given an empty text" do
       it "returns empty text" do
