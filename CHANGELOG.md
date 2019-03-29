@@ -10,6 +10,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Use `yield...` instead of `with...yield` for building HTML
 - Rename `Markout::BaseTemplate` to `Markout::Template::Base`
 
+### Removed
+- Remove transitional, strict, frameset variations from Markout::Version
+
 ## 0.2.0 - 2018-10-10
 
 ### Changed

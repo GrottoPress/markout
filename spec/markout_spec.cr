@@ -12,9 +12,9 @@ describe Markout do
       end
     end
 
-    context "given an html 4.01 strict version" do
+    context "given an html 4.01 version" do
       it "returns valid html 4.01 strict doctype" do
-        m = Markout.new Version::HTML_4_01_Strict
+        m = Markout.new Version::HTML_4_01
         m.doctype
         m.to_s.should eq(
           "<!DOCTYPE HTML PUBLIC '-//W3C//DTD HTML 4.01//EN' 'http://www.w3.org/TR/html4/strict.dtd'>"
@@ -22,52 +22,12 @@ describe Markout do
       end
     end
 
-    context "given an html 4.01 transitional version" do
-      it "returns valid html 4.01 transitional doctype" do
-        m = Markout.new Version::HTML_4_01_Trans
-        m.doctype
-        m.to_s.should eq(
-          "<!DOCTYPE HTML PUBLIC '-//W3C//DTD HTML 4.01 Transitional//EN' 'http://www.w3.org/TR/html4/loose.dtd'>"
-        )
-      end
-    end
-
-    context "given an html 4.01 frameset version" do
-      it "returns valid html 4.01 frameset doctype" do
-        m = Markout.new Version::HTML_4_01_Frame
-        m.doctype
-        m.to_s.should eq(
-          "<!DOCTYPE HTML PUBLIC '-//W3C//DTD HTML 4.01 Frameset//EN' 'http://www.w3.org/TR/html4/frameset.dtd'>"
-        )
-      end
-    end
-
-    context "given an xhtml 1.0 strict version" do
+    context "given an xhtml 1.0 version" do
       it "returns valid xhtml 1.0 strict doctype" do
-        m = Markout.new Version::XHTML_1_0_Strict
+        m = Markout.new Version::XHTML_1_0
         m.doctype
         m.to_s.should eq(
           "<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>"
-        )
-      end
-    end
-
-    context "given an xhtml 1.0 transitional version" do
-      it "returns valid xhtml 1.0 transitional doctype" do
-        m = Markout.new Version::XHTML_1_0_Trans
-        m.doctype
-        m.to_s.should eq(
-          "<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd>"
-        )
-      end
-    end
-
-    context "given an xhtml 1.0 frameset version" do
-      it "returns valid xhtml 1.0 frameset doctype" do
-        m = Markout.new Version::XHTML_1_0_Frame
-        m.doctype
-        m.to_s.should eq(
-          "<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Frameset//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd'>"
         )
       end
     end
@@ -136,7 +96,7 @@ describe Markout do
   describe "#meta" do
     context "given an xhtml version" do
       it "returns valid xhtml 'meta' element" do
-        m = Markout.new Version::XHTML_1_0_Strict
+        m = Markout.new Version::XHTML_1_0
         m.meta name: "abc", href: "http://ab.c"
         m.to_s.should eq(
           "<meta name='abc' href='http://ab.c' />"
@@ -146,7 +106,7 @@ describe Markout do
 
     context "given an html 4 version" do
       it "returns valid html 4 'meta' element" do
-        m = Markout.new Version::HTML_4_01_Strict
+        m = Markout.new Version::HTML_4_01
         m.meta name: "abc", href: "http://ab.c"
         m.to_s.should eq(
           "<meta name='abc' href='http://ab.c'>"

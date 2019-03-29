@@ -5,14 +5,10 @@ class Markout
   @nodes = [] of String
 
   enum Version
-    HTML_4_01_Strict
-    HTML_4_01_Trans
-    HTML_4_01_Frame
-    HTML_5
-    XHTML_1_0_Strict
-    XHTML_1_0_Trans
-    XHTML_1_0_Frame
+    HTML_4_01
+    XHTML_1_0
     XHTML_1_1
+    HTML_5
   end
 
   def initialize(@version : Version = Version::HTML_5)
@@ -24,25 +20,12 @@ class Markout
 
   def doctype : Nil
     case @version
-    when .html_4_01_strict?
+    when .html_4_01?
       @nodes << "<!DOCTYPE HTML PUBLIC '-//W3C//DTD HTML 4.01//EN' \
         'http://www.w3.org/TR/html4/strict.dtd'>"
-    when .html_4_01_trans?
-      @nodes << "<!DOCTYPE HTML PUBLIC '-//W3C//DTD HTML 4.01 \
-        Transitional//EN' 'http://www.w3.org/TR/html4/loose.dtd'>"
-    when .html_4_01_frame?
-      @nodes << "<!DOCTYPE HTML PUBLIC '-//W3C//DTD HTML 4.01 \
-        Frameset//EN' 'http://www.w3.org/TR/html4/frameset.dtd'>"
-    when .xhtml_1_0_strict?
+    when .xhtml_1_0?
       @nodes << "<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 \
         Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>"
-    when .xhtml_1_0_trans?
-      @nodes << "<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 \
-        Transitional//EN' \
-        'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd>"
-    when .xhtml_1_0_frame?
-      @nodes << "<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 \
-        Frameset//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd'>"
     when .xhtml_1_1?
       @nodes << "<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.1//EN' \
         'http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd'>"
