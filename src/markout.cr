@@ -13,7 +13,7 @@ class Markout
     HTML_5
   end
 
-  def initialize(@version : Version = Version::HTML_5)
+  def initialize(@version : Version = :html_5)
   end
 
   def to_s(io : IO) : Nil
