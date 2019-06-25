@@ -2,6 +2,8 @@ require "html"
 require "./tags"
 
 class Markout
+  VERSION = {{ `shards version #{__DIR__}`.chomp.stringify }}
+
   @nodes = [] of String
 
   enum Version
