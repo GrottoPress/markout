@@ -55,7 +55,7 @@ class Markout
       @nodes << "<{{ tag.id }}#{build_attrs(attr)}></{{ tag.id }}>"
     end
 
-    def {{ tag.id }}(**attr) : Nil
+    def {{ tag.id }}(**attr, & : Proc(self, Nil)) : Nil
       validate_tag {{ tag }}
 
       yield (m = self.class.new @version)
