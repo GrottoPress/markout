@@ -120,42 +120,4 @@ class Markout
     var
     video
   )
-
-  private HTML_4_01_TAGS = %i(
-    acronym
-    big
-    frame
-    frameset
-    noframes
-    tt
-  )
-
-  private HTML_5_TAGS = %i(
-    article
-    aside
-    audio
-    bdi
-    canvas
-    datalist
-    details
-    embed
-    figcaption
-    figure
-    footer
-    header
-    mark
-    meter
-    nav
-    output
-    progress
-    rp
-    rt
-    ruby
-    section
-    source
-    summary
-    time
-    video
-    wbr
-  )
 end

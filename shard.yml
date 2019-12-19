@@ -1,11 +1,11 @@
 name: markout
-version: 0.2.0
+version: 0.3.1
 
 authors:
   - GrottoPress <info@grottopress.com>
   - N Atta Kusi Adusei <attakusiadusei@gmail.com>
 
-crystal: 0.27.2
+crystal: 0.32.1
 
 license: MIT
 

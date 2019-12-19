@@ -2,6 +2,8 @@ require "html"
 require "./tags"
 
 class Markout
+  VERSION = {{ `shards version #{__DIR__}`.chomp.stringify }}
+
   @nodes = [] of String
 
   enum Version
@@ -11,7 +13,7 @@ class Markout
     HTML_5
   end
 
-  def initialize(@version : Version = Version::HTML_5)
+  def initialize(@version : Version = :html_5)
   end
 
   def to_s(io : IO) : Nil
@@ -36,8 +38,6 @@ class Markout
 
   {% for tag in VOID_TAGS %}
     def {{ tag.id }}(**attr) : Nil
-      validate_tag {{ tag }}
-
       if xhtml?
         @nodes << "<{{ tag.id }}#{build_attrs(attr)} />"
       else
@@ -48,14 +48,10 @@ class Markout
 
   {% for tag in NON_VOID_TAGS %}
     def {{ tag.id }}(**attr) : Nil
-      validate_tag {{ tag }}
-
       @nodes << "<{{ tag.id }}#{build_attrs(attr)}></{{ tag.id }}>"
     end
 
-    def {{ tag.id }}(**attr) : Nil
-      validate_tag {{ tag }}
-
+    def {{ tag.id }}(**attr, & : Proc(self, Nil)) : Nil
       yield (m = self.class.new @version)
       @nodes << "<{{ tag.id }}#{build_attrs(attr)}>#{m}</{{ tag.id }}>"
     end
@@ -83,19 +79,6 @@ class Markout
 
   private def esc(text : String) : String
     HTML.escape text
-  end
-
-  private def validate_tag(tag : Symbol) : Nil
-    err = false
-    err_msg = "Invalid `#{tag}` tag for #{@version.to_s}"
-
-    if @version.html_5?
-      err = true if HTML_4_01_TAGS.includes? tag
-    else
-      err = true if HTML_5_TAGS.includes? tag
-    end
-
-    raise err_msg if err
   end
 end
 
