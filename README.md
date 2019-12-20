@@ -92,6 +92,25 @@ server.listen
 # Open your browser and visit 'http://localhost:8080' to see Markout in action
 ```
 
+## Custom Tags
+
+You may define arbitrary tags with the `#tag` method. This is particularly useful for rendering JSX or similar.
+
+Example:
+
+```crystal
+m = Markout.new
+
+m.tag :MyApp, title: "My Awesome App" do |m|
+  m.p &.text "My app is the best."
+end
+
+puts m
+# => <MyApp title='My Awesome App'>\
+# =>   <p>My app is the best.</p>\
+# => </MyApp>
+```
+
 ## Handy methods
 
 Apart from calling regular HTML tags as methods, the following methods are available:
@@ -107,7 +126,7 @@ Apart from calling regular HTML tags as methods, the following methods are avail
 require "markout"
 
 # Create your own base page
-abstract class BasePage < Markout::Template::Base
+abstract struct BasePage < Markout::Template::Base
   private def body_tag_attr : NamedTuple
     {class: "my-body-class"}
   end
@@ -136,7 +155,7 @@ abstract class BasePage < Markout::Template::Base
 end
 
 # Now, create a page
-class MyFirstPage < BasePage
+struct MyFirstPage < BasePage
   private def head_content(m : Markout) : Nil
     m.title &.text "Brrrr!"
   end
