@@ -4,7 +4,7 @@ require "./tags"
 class Markout
   VERSION = {{ `shards version #{__DIR__}`.chomp.stringify }}
 
-  @nodes = [] of String
+  @nodes : Array(String) = [] of String
 
   private getter? xhtml : Bool
 
