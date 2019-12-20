@@ -1,4 +1,4 @@
-abstract class BasePage < Markout::Template::Base
+abstract struct BasePage < Markout::Template::Base
   private def head_tag_attr : NamedTuple
     {profile: "http://ab.c"}
   end

@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - Add `Markout::VERSION`
 
+### Changed
+- Use `struct` (instead of `class`) for page templates
+
 ## 0.3.0 - 2019-03-29
 
 ### Added

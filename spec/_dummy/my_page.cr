@@ -1,4 +1,4 @@
-class MyPage < BasePage
+struct MyPage < BasePage
   private def head_content(m : Markout) : Nil
     m.title &.text "Brrrr!"
   end
