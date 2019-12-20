@@ -6,6 +6,8 @@ class Markout
 
   @nodes = [] of String
 
+  private getter? xhtml : Bool
+
   enum Version
     HTML_4_01
     XHTML_1_0
@@ -14,6 +16,7 @@ class Markout
   end
 
   def initialize(@version : Version = :html_5)
+    @xhtml = @version.to_s.starts_with? "XHTML_"
   end
 
   def to_s(io : IO) : Nil
@@ -36,26 +39,34 @@ class Markout
     end
   end
 
-  {% for tag in VOID_TAGS %}
-    def {{ tag.id }}(**attr) : Nil
-      if xhtml?
-        @nodes << "<{{ tag.id }}#{build_attrs(attr)} />"
-      else
-        @nodes << "<{{ tag.id }}#{build_attrs(attr)}>"
-      end
+  {% for t in VOID_TAGS %}
+    def {{ t.id }}(**attr) : Nil
+      tag {{ t }}, **attr
     end
   {% end %}
 
-  {% for tag in NON_VOID_TAGS %}
-    def {{ tag.id }}(**attr) : Nil
-      @nodes << "<{{ tag.id }}#{build_attrs(attr)}></{{ tag.id }}>"
+  {% for t in NON_VOID_TAGS %}
+    def {{ t.id }}(**attr) : Nil
+      tag {{ t }}, **attr do end
     end
 
-    def {{ tag.id }}(**attr, & : Proc(self, Nil)) : Nil
-      yield (m = self.class.new @version)
-      @nodes << "<{{ tag.id }}#{build_attrs(attr)}>#{m}</{{ tag.id }}>"
+    def {{ t.id }}(**attr, &b : Proc(self, Nil)) : Nil
+      tag {{ t }}, **attr, &b
     end
   {% end %}
+
+  def tag(__ name : Symbol, **attr) : Nil
+    if component?(name) || xhtml?
+      @nodes << "<#{name}#{build_attrs(attr)} />"
+    else
+      @nodes << "<#{name}#{build_attrs(attr)}>"
+    end
+  end
+
+  def tag(__ name : Symbol, **attr, & : Proc(self, Nil)) : Nil
+    yield (m = self.class.new @version)
+    @nodes << "<#{name}#{build_attrs(attr)}>#{m}</#{name}>"
+  end
 
   def text(text : String) : Nil
     @nodes << esc text
@@ -65,8 +76,8 @@ class Markout
     @nodes << text
   end
 
-  private def xhtml? : Bool
-    @version.to_s.starts_with? "XHTML_"
+  private def component?(name : Symbol) : Bool
+    name.to_s[0].uppercase?
   end
 
   private def build_attrs(attrs : NamedTuple = NamedTuple.new) : String

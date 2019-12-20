@@ -170,4 +170,32 @@ describe Markout do
       end
     end
   end
+
+  describe "#tag" do
+    context "called without a block" do
+      it "returns a custom HTML tag" do
+        m = Markout.new :html_4_01
+
+        m.tag :MyApp, title: "My Awesome App"
+
+        m.to_s.should eq(
+          "<MyApp title='My Awesome App' />"
+        )
+      end
+    end
+
+    context "called with a block" do
+      it "returns a custom HTML tag with content" do
+        m = Markout.new
+
+        m.tag :MyApp, title: "My Awesome App" do |m|
+          m.p &.text "My app is the best."
+        end
+
+        m.to_s.should eq(
+          "<MyApp title='My Awesome App'><p>My app is the best.</p></MyApp>"
+        )
+      end
+    end
+  end
 end

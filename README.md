@@ -92,6 +92,25 @@ server.listen
 # Open your browser and visit 'http://localhost:8080' to see Markout in action
 ```
 
+## Custom Tags
+
+You may define arbitrary tags with the `#tag` method. This is particularly useful for rendering JSX or similar.
+
+Example:
+
+```crystal
+m = Markout.new
+
+m.tag :MyApp, title: "My Awesome App" do |m|
+  m.p &.text "My app is the best."
+end
+
+puts m
+# => <MyApp title='My Awesome App'>\
+# =>   <p>My app is the best.</p>\
+# => </MyApp>
+```
+
 ## Handy methods
 
 Apart from calling regular HTML tags as methods, the following methods are available:

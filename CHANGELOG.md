@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Added
 - Add `Markout::VERSION`
+- Add `#tag` to render custom tags
 
 ### Changed
 - Use `struct` (instead of `class`) for page templates
