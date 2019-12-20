@@ -1,9 +1,10 @@
 require "html"
+
+require "./markout/VERSION"
+require "./markout/template/base"
 require "./tags"
 
 class Markout
-  VERSION = {{ `shards version #{__DIR__}`.chomp.stringify }}
-
   @nodes : Array(String) = [] of String
 
   private getter? xhtml : Bool
@@ -92,5 +93,3 @@ class Markout
     HTML.escape text
   end
 end
-
-require "./markout/template/base"
