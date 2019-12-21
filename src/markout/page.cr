@@ -1,4 +1,4 @@
-abstract struct Markout::Template::Base
+abstract struct Markout::Page
   @m : Markout
 
   def initialize

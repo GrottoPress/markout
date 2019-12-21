@@ -118,15 +118,15 @@ Apart from calling regular HTML tags as methods, the following methods are avail
 - `#text(text : String)`: Use this to escape text
 - `#raw(text : String)`: Use this for unmodified text
 
-## Working with templates
+## Page templates
 
-**Markout** comes with a base template, from which child templates can inherit, and override specific methods for their own use case:
+**Markout** comes with a page template, from which child templates can inherit, and override specific methods for their own use case:
 
 ```crystal
 require "markout"
 
 # Create your own base page
-abstract struct BasePage < Markout::Template::Base
+abstract struct BasePage < Markout::Page
   private def body_tag_attr : NamedTuple
     {class: "my-body-class"}
   end

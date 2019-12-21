@@ -2,7 +2,7 @@ require "html"
 
 require "./markout/version"
 require "./markout/tags"
-require "./markout/template/base"
+require "./markout/page"
 
 class Markout
   @nodes : Array(String) = [] of String
