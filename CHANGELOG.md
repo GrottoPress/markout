@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Changed
 - Move `src/tags.cr` into `src/markout/`
+- Avoid sharing a Markout object across pages/templates
 
 ## [0.4.0] - 2019-12-20
 
