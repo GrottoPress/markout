@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [0.5.0] - 2019-12-21
+
+### Changed
+- Move `src/tags.cr` into `src/markout/`
+- Avoid sharing a Markout object across pages/templates
+- Rename `Markout::Template::Base` to `Markout::Page`
+
 ## [0.4.0] - 2019-12-20
 
 ### Added

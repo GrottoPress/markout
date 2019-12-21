@@ -1,5 +1,8 @@
-abstract struct Markout::Template::Base
-  def initialize(@m : Markout = Markout.new)
+abstract struct Markout::Page
+  @m : Markout
+
+  def initialize
+    @m = Markout.new
   end
 
   def to_s(io : IO) : Nil
