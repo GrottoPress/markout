@@ -1,5 +1,5 @@
 require "spec"
 
 require "../src/markout"
-require "./_dummy/base_page"
-require "./_dummy/my_page"
+require "./_support/base_page"
+require "./_support/my_page"
