@@ -1,6 +1,6 @@
 require "html"
 
-require "./markout/VERSION"
+require "./markout/version"
 require "./markout/tags"
 require "./markout/template/base"
 
