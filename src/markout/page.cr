@@ -17,7 +17,7 @@ abstract struct Markout::Page
       end
     end
 
-    io << @m.to_s
+    io << @m
   end
 
   private def html_tag_attr : NamedTuple
