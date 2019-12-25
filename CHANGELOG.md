@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Fixed
 - Fix unquoted path in shell command for `Markout::VERSION`
+- Allow setting HTML version in pages and components
 
 ### Removed
 - Remove `Markout::Page#initialize`

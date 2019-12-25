@@ -1,4 +1,8 @@
 abstract struct BasePage < Markout::Page
+  #private def html_version : Markout::Version
+  #  Markout::Version::XHTML_1_1
+  #end
+
   private def head_tag_attr : NamedTuple
     {profile: "http://ab.c"}
   end

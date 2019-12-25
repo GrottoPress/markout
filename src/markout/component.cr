@@ -1,9 +1,12 @@
 abstract struct Markout::Component
-  @m : Markout = Markout.new
-
   def to_s(io : IO) : Nil
-    render @m
-    io << @m
+    m = Markout.new html_version
+    render m
+    io << m
+  end
+
+  private def html_version : Version
+    Version::HTML_5
   end
 
   private abstract def render(m : Markout) : Nil

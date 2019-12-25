@@ -1,9 +1,10 @@
 abstract struct Markout::Page
-  @m : Markout = Markout.new
-
   def to_s(io : IO) : Nil
-    @m.doctype
-    @m.html **html_tag_attr do |m|
+    m = Markout.new html_version
+
+    m.doctype
+
+    m.html **html_tag_attr do |m|
       m.head **head_tag_attr do |m|
         inside_head m
       end
@@ -13,7 +14,11 @@ abstract struct Markout::Page
       end
     end
 
-    io << @m
+    io << m
+  end
+
+  private def html_version : Version
+    Version::HTML_5
   end
 
   private def html_tag_attr : NamedTuple

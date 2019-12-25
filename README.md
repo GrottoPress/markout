@@ -124,6 +124,11 @@ require "markout"
 
 # Create your own base page
 abstract struct BasePage < Markout::Page
+  # Use this to change HTML version
+  #private def html_version : Markout::Version
+  #  Markout::Version::XHTML_1_1
+  #end
+
   private def body_tag_attr : NamedTuple
     {class: "my-body-class"}
   end
@@ -164,21 +169,22 @@ struct MyFirstPage < BasePage
   end
 end
 
-m = Markout.new :xhtml_1_1
-my_first_page = MyFirstPage.new m
-
-#puts my_first_page
+#puts MyFirstPage.new
 ```
 
 ## Components
 
-You may extract out shared elements that do not necessarily fit into the page inheritance structure as components, and mount them in your pages.
+You may extract out shared elements that do not exactly fit into the page inheritance structure as components, and mount them in your pages.
 
 ```crystal
 require "markout"
 
 # Create your own base component
 abstract struct BaseComponent < Markout::Component
+  # Use this to change HTML version
+  #private def html_version : Markout::Version
+  #  Markout::Version::XHTML_1_1
+  #end
 end
 
 # Create the component
