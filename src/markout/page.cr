@@ -1,9 +1,5 @@
 abstract struct Markout::Page
-  @m : Markout
-
-  def initialize
-    @m = Markout.new
-  end
+  @m : Markout = Markout.new
 
   def to_s(io : IO) : Nil
     @m.doctype

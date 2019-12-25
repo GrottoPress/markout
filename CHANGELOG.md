@@ -12,6 +12,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Fixed
 - Fix unquoted path in shell command for `Markout::VERSION`
 
+### Removed
+- Remove `Markout::Page#initialize`
+
 ## [0.5.0] - 2019-12-21
 
 ### Changed
