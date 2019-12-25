@@ -183,12 +183,12 @@ describe Markout do
     end
 
     context "called with an empty attribute value" do
-      it "returns valid element with a valueless boolean attribute" do
+      it "returns valid element with an empty attribute value" do
         m = Markout.new :html_4_01
 
         m.input class: "foo", DISABLED: "", type: "submit"
 
-        m.to_s.should eq("<input class='foo' disabled type='submit'>")
+        m.to_s.should eq("<input class='foo' disabled='' type='submit'>")
       end
     end
   end
