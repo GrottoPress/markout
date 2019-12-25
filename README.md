@@ -249,8 +249,3 @@ Kindly report suspected security vulnerabilities in private, via contact details
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create a new Pull Request
-
-## Contributors
-
-- [@GrottoPress](https://github.com/grottopress) (creator, maintainer)
-- [@akadusei](https://github.com/akadusei)
