@@ -171,6 +171,28 @@ describe Markout do
     end
   end
 
+  describe "#input" do
+    context "called with a `nil` attribute value" do
+      it "returns valid element with a valueless boolean attribute" do
+        m = Markout.new :xhtml_1_1
+
+        m.input class: "foo", disabled: nil, Type: "submit"
+
+        m.to_s.should eq("<input class='foo' disabled type='submit' />")
+      end
+    end
+
+    context "called with an empty attribute value" do
+      it "returns valid element with a valueless boolean attribute" do
+        m = Markout.new :html_4_01
+
+        m.input class: "foo", DISABLED: "", type: "submit"
+
+        m.to_s.should eq("<input class='foo' disabled type='submit'>")
+      end
+    end
+  end
+
   describe "#tag" do
     context "called without a block" do
       it "returns a custom HTML tag" do

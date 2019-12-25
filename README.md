@@ -31,6 +31,7 @@ m.html lang: "en" do |m|
   m.head do |m|
     m.meta charset: "utf-8"
     m.title &.text "Markout is awesome!"
+    m.link boolean_attribute: nil, rel: "stylesheet", href: "/style.css"
   end
 
   m.body class: "my-body-class", data_foo: "bar" do |m|
@@ -59,6 +60,7 @@ puts m
 # =>   <head>\
 # =>     <meta charset='utf-8'>\
 # =>     <title>Markout is awesome!</title>\
+# =>     <link boolean-attribute rel='stylesheet' href='/style.css'>
 # =>   </head>\
 # =>   <body class='my-body-class' data-foo='bar'>\
 # =>     <header id='header'>\

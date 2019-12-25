@@ -83,7 +83,8 @@ class Markout
 
   private def build_attrs(attrs : NamedTuple = NamedTuple.new) : String
     attr_str = attrs.map do |key, val|
-      "#{key.to_s.downcase.gsub(/[^a-zA-Z0-9\-]/, '-')}='#{esc(val)}'"
+      k = key.to_s.downcase.gsub /[^a-z0-9\-]/, '-'
+      val.to_s.empty? ? k : "#{k}='#{esc(val.to_s)}'"
     end
 
     attr_str.empty? ? "" : " #{attr_str.join(' ')}"
