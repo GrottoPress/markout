@@ -144,7 +144,9 @@ abstract struct BasePage < Markout::Page
       m.p &.text "An awesome description"
     end
 
-    body_content m
+    m.main id: main do |m|
+      body_content m
+    end
 
     m.footer id: "footer" do |m|
       m.raw "<!-- I'm unescaped -->"
