@@ -220,4 +220,27 @@ describe Markout do
       end
     end
   end
+
+  describe "#mount" do
+    it "renders component markup accurately" do
+      users = [{"name" => "Kofi"}, {"name" => "Ama"}, {"name" => "Nana"}]
+      m = Markout.new
+
+      m.div class: "users-wrap" do |m|
+        m.mount MyComponent, users
+      end
+
+      m.to_s.should eq(
+        <<-HTML
+        <div class='users-wrap'>\
+          <ul class='users'>\
+            <li class='user'>Kofi</li>\
+            <li class='user'>Ama</li>\
+            <li class='user'>Nana</li>\
+          </ul>\
+        </div>
+        HTML
+      )
+    end
+  end
 end

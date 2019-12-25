@@ -1,8 +1,7 @@
 require "html"
 
 require "./markout/version"
-require "./markout/tags"
-require "./markout/page"
+require "./markout/*"
 
 class Markout
   @nodes : Array(String) = [] of String
@@ -57,7 +56,7 @@ class Markout
   {% end %}
 
   def tag(__ name : Symbol, **attr) : Nil
-    if component?(name) || xhtml?
+    if jsx?(name) || xhtml?
       @nodes << "<#{name}#{build_attrs(attr)} />"
     else
       @nodes << "<#{name}#{build_attrs(attr)}>"
@@ -69,6 +68,14 @@ class Markout
     @nodes << "<#{name}#{build_attrs(attr)}>#{m}</#{name}>"
   end
 
+  def mount(component : Markout::Component.class, *args) : Nil
+    mount component.new(*args)
+  end
+
+  def mount(component : Markout::Component) : Nil
+    raw component.to_s
+  end
+
   def text(text : String) : Nil
     @nodes << esc text
   end
@@ -77,7 +84,7 @@ class Markout
     @nodes << text
   end
 
-  private def component?(name : Symbol) : Bool
+  private def jsx?(name : Symbol) : Bool
     name.to_s[0].uppercase?
   end
 

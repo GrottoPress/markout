@@ -1,6 +1,8 @@
 # Markout
 
-**Markout** is an awesome Crystal DSL for HTML. Use **Markout** if you need:
+**Markout** is an awesome Crystal DSL for HTML. It is a great alternative to template engines.
+
+Use **Markout** if you need:
 
 - Type-safe HTML
 - Automatically escaped attributes
@@ -113,13 +115,6 @@ puts m
 # => </MyApp>
 ```
 
-## Handy methods
-
-Apart from calling regular HTML tags as methods, the following methods are available:
-
-- `#text(text : String)`: Use this to escape text
-- `#raw(text : String)`: Use this for unmodified text
-
 ## Page templates
 
 **Markout** comes with a page template, from which child templates can inherit, and override specific methods for their own use case:
@@ -174,6 +169,61 @@ my_first_page = MyFirstPage.new m
 
 #puts my_first_page
 ```
+
+## Components
+
+You may extract out shared elements that do not necessarily fit into the page inheritance structure as components, and mount them in your pages.
+
+```crystal
+require "markout"
+
+# Create your own base component
+abstract struct BaseComponent < Markout::Component
+end
+
+# Create the component
+struct MyFirstComponent < BaseComponent
+  def initialize(@users : Array(Hash(String, String)))
+  end
+
+  # Define the required `#render` method
+  private def render(m : Markout) : Nil
+    m.ul class: "users" do |m|
+      @users.each do |user|
+        m.li class: "user" do |m|
+          m.text user["name"]
+        end
+      end
+    end
+  end
+end
+
+# Mount the component
+struct MySecondPage < BasePage
+  def initialize(@users : Array(Hash(String, String)))
+  end
+
+  private def head_content(m : Markout) : Nil
+    m.title &.text "Component test"
+  end
+
+  private def body_content(m : Markout) : Nil
+    m.div class: "users-wrap" do |m|
+      m.mount MyFirstComponent, @users # Or `m.mount MyFirstComponent.new(@users)`
+    end
+  end
+end
+
+#users = [{"name" => "Kofi"}, {"name" => "Ama"}, {"name" => "Nana"}]
+#puts MySecondPage.new(users)
+```
+
+## Handy methods
+
+Apart from calling regular HTML tags as methods, the following methods are available:
+
+- `#text(text : String)`: Use this to escape text
+- `#raw(text : String)`: Use this for unmodified text
 
 ## Alternatives
 
