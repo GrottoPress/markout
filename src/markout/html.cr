@@ -37,16 +37,16 @@ module Markout
     def doctype : Nil
       case @version
       when .html_4_01?
-        @nodes << "<!DOCTYPE HTML PUBLIC '-//W3C//DTD HTML 4.01//EN' \
+        raw "<!DOCTYPE HTML PUBLIC '-//W3C//DTD HTML 4.01//EN' \
           'http://www.w3.org/TR/html4/strict.dtd'>"
       when .xhtml_1_0?
-        @nodes << "<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 \
+        raw "<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 \
           Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>"
       when .xhtml_1_1?
-        @nodes << "<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.1//EN' \
+        raw "<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.1//EN' \
           'http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd'>"
       else
-        @nodes << "<!DOCTYPE html>"
+        raw "<!DOCTYPE html>"
       end
     end
 
@@ -68,15 +68,15 @@ module Markout
 
     def tag(__ name : Symbol, **attr) : Nil
       if jsx?(name) || xhtml?
-        @nodes << "<#{name}#{build_attrs(attr)} />"
+        raw "<#{name}#{build_attrs(attr)} />"
       else
-        @nodes << "<#{name}#{build_attrs(attr)}>"
+        raw "<#{name}#{build_attrs(attr)}>"
       end
     end
 
     def tag(__ name : Symbol, **attr, & : Proc(self, Nil)) : Nil
       yield (m = self.class.new @version)
-      @nodes << "<#{name}#{build_attrs(attr)}>#{m}</#{name}>"
+      raw "<#{name}#{build_attrs(attr)}>#{m}</#{name}>"
     end
 
     def mount(component : Component.class, *args) : Nil
@@ -88,7 +88,7 @@ module Markout
     end
 
     def text(text : String) : Nil
-      @nodes << esc text
+      raw esc(text)
     end
 
     def raw(text : String) : Nil
