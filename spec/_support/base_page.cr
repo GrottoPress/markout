@@ -1,6 +1,6 @@
-abstract struct BasePage < Markout::Page
-  #private def html_version : Markout::Version
-  #  Markout::Version::XHTML_1_1
+abstract struct BasePage < Markout::HTML::Page
+  #private def html_version : Markout::HTML::Version
+  #  Markout::XHTML_1_1
   #end
 
   private def head_tag_attr : NamedTuple
@@ -11,12 +11,12 @@ abstract struct BasePage < Markout::Page
     {class: "my-body-class"}
   end
 
-  private def inside_head(m : Markout) : Nil
+  private def inside_head(m : Markout::HTML) : Nil
     m.meta charset: "UTF-8"
     head_content m
   end
 
-  private def inside_body(m : Markout) : Nil
+  private def inside_body(m : Markout::HTML) : Nil
     m.header id: "header" do |m|
       m.h1 &.text "My First Heading Level"
       m.p &.text "An awesome description"
@@ -29,7 +29,7 @@ abstract struct BasePage < Markout::Page
     end
   end
 
-  private abstract def head_content(m : Markout) : Nil
+  private abstract def head_content(m : Markout::HTML) : Nil
 
-  private abstract def body_content(m : Markout) : Nil
+  private abstract def body_content(m : Markout::HTML) : Nil
 end

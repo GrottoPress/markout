@@ -1,6 +1,6 @@
 require "../spec_helper"
 
-describe Markout::Page do
+describe Markout::HTML::Page do
   describe "#to_s" do
     it "renders page markup accurately" do
       MyPage.new.to_s.should eq(

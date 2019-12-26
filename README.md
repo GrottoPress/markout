@@ -25,7 +25,7 @@ dependencies:
 ```crystal
 require "markout"
 
-m = Markout.new :html_5
+m = Markout.html :html_5
 
 m.doctype
 
@@ -96,14 +96,14 @@ server.listen
 # Open your browser and visit 'http://localhost:8080' to see Markout in action
 ```
 
-## Custom Tags
+### Custom Tags
 
 You may define arbitrary tags with the `#tag` method. This is particularly useful for rendering JSX or similar.
 
 Example:
 
 ```crystal
-m = Markout.new
+m = Markout.html
 
 m.tag :MyApp, title: "My Awesome App" do |m|
   m.p &.text "My app is the best."
@@ -115,30 +115,30 @@ puts m
 # => </MyApp>
 ```
 
-## Page templates
+### Page templates
 
-**Markout** comes with a page template, from which child templates can inherit, and override specific methods for their own use case:
+With **Markout**, pages are created using regular Crystal structs. **Markout** comes with a base page, which child pages can inherit, and override specific methods for their own use case:
 
 ```crystal
 require "markout"
 
 # Create your own base page
-abstract struct BasePage < Markout::Page
+abstract struct BasePage < Markout::HTML::Page
   # Use this to change HTML version
-  #private def html_version : Markout::Version
-  #  Markout::Version::XHTML_1_1
+  #private def html_version : Markout::HTML::Version
+  #  Markout::XHTML_1_1
   #end
 
   private def body_tag_attr : NamedTuple
     {class: "my-body-class"}
   end
 
-  private def inside_head(m : Markout) : Nil
+  private def inside_head(m : Markout::HTML) : Nil
     m.meta charset: "UTF-8"
     head_content m
   end
 
-  private def inside_body(m : Markout) : Nil
+  private def inside_body(m : Markout::HTML) : Nil
     m.header id: "header" do |m|
       m.h1 &.text "My First Heading Level"
       m.p &.text "An awesome description"
@@ -153,18 +153,18 @@ abstract struct BasePage < Markout::Page
     end
   end
 
-  private abstract def head_content(m : Markout) : Nil
+  private abstract def head_content(m : Markout::HTML) : Nil
 
-  private abstract def body_content(m : Markout) : Nil
+  private abstract def body_content(m : Markout::HTML) : Nil
 end
 
 # Now, create a page
 struct MyFirstPage < BasePage
-  private def head_content(m : Markout) : Nil
+  private def head_content(m : Markout::HTML) : Nil
     m.title &.text "Brrrr!"
   end
 
-  private def body_content(m : Markout) : Nil
+  private def body_content(m : Markout::HTML) : Nil
     m.p &.text "Hello from markout!"
   end
 end
@@ -172,7 +172,7 @@ end
 #puts MyFirstPage.new
 ```
 
-## Components
+### Components
 
 You may extract out shared elements that do not exactly fit into the page inheritance structure as components, and mount them in your pages.
 
@@ -180,10 +180,10 @@ You may extract out shared elements that do not exactly fit into the page inheri
 require "markout"
 
 # Create your own base component
-abstract struct BaseComponent < Markout::Component
+abstract struct BaseComponent < Markout::HTML::Component
   # Use this to change HTML version
-  #private def html_version : Markout::Version
-  #  Markout::Version::XHTML_1_1
+  #private def html_version : Markout::HTML::Version
+  #  Markout::XHTML_1_1
   #end
 end
 
@@ -193,7 +193,7 @@ struct MyFirstComponent < BaseComponent
   end
 
   # Define the required `#render` method
-  private def render(m : Markout) : Nil
+  private def render(m : Markout::HTML) : Nil
     m.ul class: "users" do |m|
       @users.each do |user|
         m.li class: "user" do |m|
@@ -204,16 +204,16 @@ struct MyFirstComponent < BaseComponent
   end
 end
 
-# Mount the component
+# Mount the component (with `#mount`)
 struct MySecondPage < BasePage
   def initialize(@users : Array(Hash(String, String)))
   end
 
-  private def head_content(m : Markout) : Nil
+  private def head_content(m : Markout::HTML) : Nil
     m.title &.text "Component test"
   end
 
-  private def body_content(m : Markout) : Nil
+  private def body_content(m : Markout::HTML) : Nil
     m.div class: "users-wrap" do |m|
       m.mount MyFirstComponent, @users # Or `m.mount MyFirstComponent.new(@users)`
     end
@@ -224,12 +224,12 @@ end
 #puts MySecondPage.new(users)
 ```
 
-## Handy methods
+### Handy methods
 
 Apart from calling regular HTML tags as methods, the following methods are available:
 
 - `#text(text : String)`: Use this to escape text
-- `#raw(text : String)`: Use this for unmodified text
+- `#raw(text : String)`: Use this add unescaped text
 
 ## Alternatives
 

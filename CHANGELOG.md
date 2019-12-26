@@ -10,6 +10,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Add support for components/partials
 - Add support for valueless [boolean attributes](https://html.spec.whatwg.org/multipage/common-microsyntaxes.html#boolean-attributes)
 
+### Changed
+- Move types into a new `Markout::HTML` namespace
+
 ### Fixed
 - Fix unquoted path in shell command for `Markout::VERSION`
 - Allow setting HTML version in pages and components

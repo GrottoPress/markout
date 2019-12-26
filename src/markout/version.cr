@@ -1,3 +1,3 @@
-class Markout
+module Markout
   VERSION = {{ `shards version "#{__DIR__}"`.chomp.stringify }}
 end

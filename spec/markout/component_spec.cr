@@ -1,6 +1,6 @@
 require "../spec_helper"
 
-describe Markout::Component do
+describe Markout::HTML::Component do
   describe "#to_s" do
     it "renders component markup accurately" do
       users = [{"name" => "Kofi"}, {"name" => "Ama"}, {"name" => "Nana"}]

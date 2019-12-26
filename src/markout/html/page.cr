@@ -1,6 +1,6 @@
-abstract struct Markout::Page
+abstract struct Markout::HTML::Page
   def to_s(io : IO) : Nil
-    m = Markout.new html_version
+    m = HTML.new html_version
 
     m.doctype
 
@@ -33,7 +33,7 @@ abstract struct Markout::Page
     NamedTuple.new
   end
 
-  private abstract def inside_head(m : Markout) : Nil
+  private abstract def inside_head(m : HTML) : Nil
 
-  private abstract def inside_body(m : Markout) : Nil
+  private abstract def inside_body(m : HTML) : Nil
 end
