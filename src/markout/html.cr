@@ -84,15 +84,15 @@ module Markout
     end
 
     def mount(component : Component) : Nil
-      raw component.to_s
+      raw component
     end
 
-    def text(text : String) : Nil
+    def text(text) : Nil
       raw esc(text)
     end
 
-    def raw(text : String) : Nil
-      @nodes << text
+    def raw(text) : Nil
+      @nodes << text.to_s
     end
 
     private def jsx?(name : Symbol) : Bool
@@ -102,14 +102,14 @@ module Markout
     private def build_attrs(attrs : NamedTuple = NamedTuple.new) : String
       attr_str = attrs.map do |key, val|
         k = key.to_s.downcase.gsub /[^a-z0-9\-]/, '-'
-        val.nil? ? k : "#{k}='#{esc(val.to_s)}'"
+        val.nil? ? k : "#{k}='#{esc(val)}'"
       end
 
       attr_str.empty? ? "" : " #{attr_str.join(' ')}"
     end
 
-    private def esc(text : String) : String
-      ::HTML.escape text
+    private def esc(text) : String
+      ::HTML.escape text.to_s
     end
   end
 end
