@@ -6,9 +6,9 @@ require "./html/**"
 
 module Markout
   HTML_4_01 = HTML::Version::HTML_4_01
+  HTML_5 = HTML::Version::HTML_5
   XHTML_1_0 = HTML::Version::XHTML_1_0
   XHTML_1_1 = HTML::Version::XHTML_1_1
-  HTML_5 = HTML::Version::HTML_5
 
   def html(version : HTML::Version = :html_5) : HTML
     HTML.new version
