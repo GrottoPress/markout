@@ -98,11 +98,13 @@ server.listen
 
 ### Custom Tags
 
-You may define arbitrary tags with the `#tag` method. This is particularly useful for rendering JSX or similar.
+You may define arbitrary tags with the `Markout::HTML#tag` method. This is particularly useful for rendering JSX or similar.
 
 Example:
 
 ```crystal
+require "markout/html"
+
 m = Markout.html
 
 m.tag :MyApp, title: "My Awesome App" do |m|
@@ -204,7 +206,7 @@ struct MyFirstComponent < BaseComponent
   end
 end
 
-# Mount the component (with `#mount`)
+# Mount the component (with `Markout::HTML#mount`)
 struct MySecondPage < BasePage
   def initialize(@users : Array(Hash(String, String)))
   end
@@ -228,8 +230,8 @@ end
 
 Apart from calling regular HTML tags as methods, the following methods are available:
 
-- `#text(text : String)`: Use this to escape text
-- `#raw(text : String)`: Use this add unescaped text
+- `Markout::HTML#text(text : String)`: Use this to render escaped text
+- `Markout::HTML#raw(text : String)`: Use this render unescaped text
 
 ## Alternatives
 
