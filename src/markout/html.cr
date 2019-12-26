@@ -67,6 +67,14 @@ module Markout
     {% end %}
 
     def tag(__ name : Symbol, **attr) : Nil
+      tag name.to_s, **attr
+    end
+
+    def tag(__ name : Symbol, **attr, &b : Proc(self, Nil)) : Nil
+      tag name.to_s, **attr, &b
+    end
+
+    def tag(__ name : String, **attr) : Nil
       if jsx?(name) || xhtml?
         raw "<#{name}#{build_attrs(attr)} />"
       else
@@ -74,7 +82,7 @@ module Markout
       end
     end
 
-    def tag(__ name : Symbol, **attr, & : Proc(self, Nil)) : Nil
+    def tag(__ name : String, **attr, & : Proc(self, Nil)) : Nil
       yield (m = self.class.new @version)
       raw "<#{name}#{build_attrs(attr)}>#{m}</#{name}>"
     end
@@ -95,8 +103,8 @@ module Markout
       @nodes << text.to_s
     end
 
-    private def jsx?(name : Symbol) : Bool
-      name.to_s[0].uppercase?
+    private def jsx?(name : String) : Bool
+      name[0].uppercase?
     end
 
     private def build_attrs(attrs : NamedTuple = NamedTuple.new) : String

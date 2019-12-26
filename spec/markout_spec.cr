@@ -210,7 +210,7 @@ describe Markout::HTML do
       it "returns a custom HTML tag with content" do
         m = Markout.html
 
-        m.tag :MyApp, title: "My Awesome App" do |m|
+        m.tag "MyApp", title: "My Awesome App" do |m|
           m.p &.text "My app is the best."
         end
 
