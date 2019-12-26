@@ -79,8 +79,8 @@ module Markout
       raw "<#{name}#{build_attrs(attr)}>#{m}</#{name}>"
     end
 
-    def mount(component : Component.class, *args) : Nil
-      mount component.new(*args)
+    def mount(component : Component.class, *args, **kwargs) : Nil
+      mount component.new(*args, **kwargs)
     end
 
     def mount(component : Component) : Nil
