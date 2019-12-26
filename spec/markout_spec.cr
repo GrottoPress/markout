@@ -224,7 +224,7 @@ describe Markout::HTML do
   describe "#mount" do
     it "renders component markup accurately" do
       users = [{"name" => "Kofi"}, {"name" => "Ama"}, {"name" => "Nana"}]
-      m = Markout.html
+      m = Markout.html :xhtml_1_1
 
       m.div class: "users-wrap" do |m|
         m.mount MyComponent, users
