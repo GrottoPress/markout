@@ -1,5 +1,6 @@
 require "html"
 
+require "./version"
 require "./html/tags"
 require "./html/**"
 
