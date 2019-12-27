@@ -1,6 +1,5 @@
 require "html"
 
-require "../markout"
 require "./html/tags"
 require "./html/**"
 
@@ -10,7 +9,7 @@ module Markout
   XHTML_1_0 = HTML::Version::XHTML_1_0
   XHTML_1_1 = HTML::Version::XHTML_1_1
 
-  def html(version : HTML::Version = :html_5) : HTML
+  def self.html(version : HTML::Version = :html_5) : HTML
     HTML.new version
   end
 
