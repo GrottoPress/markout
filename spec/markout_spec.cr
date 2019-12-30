@@ -222,25 +222,49 @@ describe Markout::HTML do
   end
 
   describe "#mount" do
-    it "renders component markup accurately" do
-      users = [{"name" => "Kofi"}, {"name" => "Ama"}, {"name" => "Nana"}]
-      m = Markout.html :xhtml_1_1
+    context "called without a block" do
+      it "renders component markup accurately" do
+        users = [{"name" => "Kofi"}, {"name" => "Ama"}, {"name" => "Nana"}]
+        m = Markout.html :xhtml_1_1
 
-      m.div class: "users-wrap" do |m|
-        m.mount MyComponent, users
+        m.div class: "users-wrap" do |m|
+          m.mount MyComponent, users
+        end
+
+        m.to_s.should eq(
+          <<-HTML
+          <div class='users-wrap'>\
+            <ul class='users'>\
+              <li class='user'>Kofi</li>\
+              <li class='user'>Ama</li>\
+              <li class='user'>Nana</li>\
+            </ul>\
+          </div>
+          HTML
+        )
       end
+    end
 
-      m.to_s.should eq(
-        <<-HTML
-        <div class='users-wrap'>\
-          <ul class='users'>\
-            <li class='user'>Kofi</li>\
-            <li class='user'>Ama</li>\
-            <li class='user'>Nana</li>\
-          </ul>\
-        </div>
-        HTML
-      )
+    context "called with a block" do
+      it "renders component markup accurately" do
+        m = Markout.html :xhtml_1_1
+
+        m.div class: "link-wrap" do |m|
+          m.mount MyLinkComponent, "http://ab.c" do |m|
+            m.img src: "abc.img"
+          end
+        end
+
+        m.to_s.should eq(
+          <<-HTML
+          <div class='link-wrap'>\
+            <a class='link' href='http://ab.c'>\
+              <img src='abc.img' />\
+            </a>\
+          </div>
+          HTML
+        )
+      end
     end
   end
 end

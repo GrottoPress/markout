@@ -91,6 +91,15 @@ module Markout
       mount component.new(*args, **kwargs)
     end
 
+    def mount(
+      component : Component.class,
+      *args,
+      **kwargs,
+      &b : Proc(self, Nil)
+    ) : Nil
+      mount component.new(*args, **kwargs, &b)
+    end
+
     def mount(component : Component) : Nil
       raw component
     end

@@ -226,6 +226,39 @@ end
 #puts MySecondPage.new(users)
 ```
 
+A component may accept a block by yielding in its constructor:
+
+```crystal
+# Create the component
+struct MyLinkComponent < BaseComponent
+  @y : Markout::HTML
+
+  def initialize(@url : String, & : Proc(Markout::HTML, Nil))
+    yield (m = Markout.html html_version)
+    @y = m
+  end
+
+  private def render(m : Markout::HTML) : Nil
+    m.a class: "link", href: @url do |m|
+      m.raw @y
+    end
+  end
+end
+
+# Mount the component
+struct MyThirdPage < BasePage
+  private def body_content(m : Markout::HTML) : Nil
+    m.div class: "link-wrap" do |m|
+      m.mount MyLinkComponent, "http://ab.c" do |m|
+        m.img src: "abc.img"
+      end
+    end
+  end
+end
+
+#puts MyThirdPage.new
+```
+
 ### Handy methods
 
 Apart from calling regular HTML tags as methods, the following methods are available:
