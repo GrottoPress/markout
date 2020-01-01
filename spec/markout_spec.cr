@@ -266,5 +266,28 @@ describe Markout::HTML do
         )
       end
     end
+
+    context "called with named arguments" do
+      it "renders component markup accurately" do
+        m = Markout.html :xhtml_1_1
+
+        m.div class: "link-wrap" do |m|
+          m.mount MyLinkComponent, "http://ab.c",
+          class: "x-link", id: "my-link" do |m|
+            m.img src: "abc.img"
+          end
+        end
+
+        m.to_s.should eq(
+          <<-HTML
+          <div class='link-wrap'>\
+            <a class='x-link' id='my-link' href='http://ab.c'>\
+              <img src='abc.img' />\
+            </a>\
+          </div>
+          HTML
+        )
+      end
+    end
   end
 end

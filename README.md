@@ -226,22 +226,30 @@ end
 #puts MySecondPage.new(users)
 ```
 
-A component may accept a block by yielding in its constructor:
+A component may accept a block, or named arguments, or both:
 
 ```crystal
 # Create the component
 struct MyLinkComponent < BaseComponent
-  @y : Markout::HTML
+  @r : String
 
-  def initialize(@url : String, & : Proc(Markout::HTML, Nil))
-    yield (m = Markout.html html_version)
-    @y = m
+  def initialize(@url : String, **opts, &b : Proc(Markout::HTML, Nil))
+    @r = render(**opts, &b)
   end
 
   private def render(m : Markout::HTML) : Nil
-    m.a class: "link", href: @url do |m|
-      m.raw @y
+    m.raw @r
+  end
+
+  private def render(**opts, & : Proc(Markout::HTML, Nil))
+    yield (a = Markout.html html_version)
+    args = opts.merge({href: @url})
+    args = {class: "link"}.merge args
+    m = Markout.html html_version
+    m.a **args do |m|
+      m.raw(a)
     end
+    m.to_s
   end
 end
 
@@ -249,14 +257,22 @@ end
 struct MyThirdPage < BasePage
   private def body_content(m : Markout::HTML) : Nil
     m.div class: "link-wrap" do |m|
-      m.mount MyLinkComponent, "http://ab.c" do |m|
+      m.mount MyLinkComponent, "http://ab.c",
+      class: "x-link", id: "my-link" do |m|
         m.img src: "abc.img"
       end
     end
   end
 end
 
-#puts MyThirdPage.new
+puts MyThirdPage.new
+# => ...
+# => <div class='link-wrap'>\
+# =>   <a class='x-link' id='my-link' href='http://ab.c'>\
+# =>     <img src='abc.img' />\
+# =>   </a>\
+# => </div>
+# => ...
 ```
 
 ### Handy methods
