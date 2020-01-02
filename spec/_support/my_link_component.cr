@@ -9,7 +9,7 @@ struct MyLinkComponent < BaseComponent
     m.raw @r
   end
 
-  private def render(**opts, & : Proc(Markout::HTML, Nil))
+  private def render(**opts, & : Proc(Markout::HTML, Nil)) : String
     yield (a = Markout.html html_version)
     args = opts.merge({href: @url})
     args = {class: "link"}.merge args
