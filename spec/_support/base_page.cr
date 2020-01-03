@@ -1,4 +1,6 @@
-abstract struct BasePage < Markout::HTML::Page
+abstract struct BasePage
+  include Markout::HTML::Page
+
   private def html_version : Markout::HTML::Version
     Markout::HTML_5
   end

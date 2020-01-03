@@ -1,4 +1,4 @@
-abstract struct Markout::HTML::Component
+module Markout::HTML::Component
   def to_s(io : IO) : Nil
     m = HTML.new html_version
     render m

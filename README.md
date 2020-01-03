@@ -125,8 +125,10 @@ With **Markout**, pages are created using regular Crystal structs. **Markout** c
 require "markout/html"
 
 # Create your own base page
-abstract struct BasePage < Markout::HTML::Page
-  # Use this to change HTML version
+abstract struct BasePage
+  include Markout::HTML::Page
+
+  # You may use this to change HTML version
   #private def html_version : Markout::HTML::Version
   #  Markout::XHTML_1_1
   #end
@@ -182,7 +184,9 @@ You may extract out shared elements that do not exactly fit into the page inheri
 require "markout/html"
 
 # Create your own base component
-abstract struct BaseComponent < Markout::HTML::Component
+abstract struct BaseComponent
+  include Markout::HTML::Component
+
   # Use this to change HTML version
   #private def html_version : Markout::HTML::Version
   #  Markout::XHTML_1_1
