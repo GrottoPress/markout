@@ -1,12 +1,12 @@
 # Markout
 
-**Markout** is an awesome Crystal DSL for HTML. It is a great alternative to template engines.
+**Markout** is an awesome Crystal DSL for HTML.
 
 Use **Markout** if you need:
 
 - Type-safe HTML
 - Automatically escaped attributes
-- Accurate, valid syntax
+- Valid syntax
 
 Markout supports HTML 4, 5 and XHTML
 
