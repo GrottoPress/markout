@@ -1,10 +1,12 @@
 # Markout
 
-**Markout** is an awesome Crystal DSL for HTML. Use **Markout** if you need:
+**Markout** is an awesome Crystal DSL for HTML.
+
+Use **Markout** if you need:
 
 - Type-safe HTML
 - Automatically escaped attributes
-- Accurate, valid syntax
+- Valid syntax
 
 Markout supports HTML 4, 5 and XHTML
 
@@ -21,9 +23,9 @@ dependencies:
 ## Usage
 
 ```crystal
-require "markout"
+require "markout/html"
 
-m = Markout.new :html_5
+m = Markout.html :html_5
 
 m.doctype
 
@@ -31,6 +33,7 @@ m.html lang: "en" do |m|
   m.head do |m|
     m.meta charset: "utf-8"
     m.title &.text "Markout is awesome!"
+    m.link boolean_attribute: nil, rel: "stylesheet", href: "/style.css"
   end
 
   m.body class: "my-body-class", data_foo: "bar" do |m|
@@ -59,6 +62,7 @@ puts m
 # =>   <head>\
 # =>     <meta charset='utf-8'>\
 # =>     <title>Markout is awesome!</title>\
+# =>     <link boolean-attribute rel='stylesheet' href='/style.css'>
 # =>   </head>\
 # =>   <body class='my-body-class' data-foo='bar'>\
 # =>     <header id='header'>\
@@ -92,14 +96,16 @@ server.listen
 # Open your browser and visit 'http://localhost:8080' to see Markout in action
 ```
 
-## Custom Tags
+### Custom Tags
 
-You may define arbitrary tags with the `#tag` method. This is particularly useful for rendering JSX or similar.
+You may define arbitrary tags with the `Markout::HTML#tag` method. This is particularly useful for rendering JSX or similar.
 
 Example:
 
 ```crystal
-m = Markout.new
+require "markout/html"
+
+m = Markout.html
 
 m.tag :MyApp, title: "My Awesome App" do |m|
   m.p &.text "My app is the best."
@@ -111,65 +117,174 @@ puts m
 # => </MyApp>
 ```
 
-## Handy methods
+### Page templates
 
-Apart from calling regular HTML tags as methods, the following methods are available:
-
-- `#text(text : String)`: Use this to escape text
-- `#raw(text : String)`: Use this for unmodified text
-
-## Page templates
-
-**Markout** comes with a page template, from which child templates can inherit, and override specific methods for their own use case:
+With **Markout**, pages are created using regular Crystal structs. **Markout** comes with a base page, which child pages can inherit, and override specific methods for their own use case:
 
 ```crystal
-require "markout"
+require "markout/html"
 
 # Create your own base page
-abstract struct BasePage < Markout::Page
+abstract struct BasePage
+  include Markout::HTML::Page
+
+  # You may use this to change HTML version
+  #private def html_version : Markout::HTML::Version
+  #  Markout::XHTML_1_1
+  #end
+
   private def body_tag_attr : NamedTuple
     {class: "my-body-class"}
   end
 
-  private def inside_head(m : Markout) : Nil
+  private def inside_head(m : Markout::HTML) : Nil
     m.meta charset: "UTF-8"
     head_content m
   end
 
-  private def inside_body(m : Markout) : Nil
+  private def inside_body(m : Markout::HTML) : Nil
     m.header id: "header" do |m|
       m.h1 &.text "My First Heading Level"
       m.p &.text "An awesome description"
     end
 
-    body_content m
+    m.main id: main do |m|
+      body_content m
+    end
 
     m.footer id: "footer" do |m|
       m.raw "<!-- I'm unescaped -->"
     end
   end
 
-  private abstract def head_content(m : Markout) : Nil
+  private abstract def head_content(m : Markout::HTML) : Nil
 
-  private abstract def body_content(m : Markout) : Nil
+  private abstract def body_content(m : Markout::HTML) : Nil
 end
 
 # Now, create a page
 struct MyFirstPage < BasePage
-  private def head_content(m : Markout) : Nil
+  private def head_content(m : Markout::HTML) : Nil
     m.title &.text "Brrrr!"
   end
 
-  private def body_content(m : Markout) : Nil
+  private def body_content(m : Markout::HTML) : Nil
     m.p &.text "Hello from markout!"
   end
 end
 
-m = Markout.new :xhtml_1_1
-my_first_page = MyFirstPage.new m
-
-#puts my_first_page
+#puts MyFirstPage.new
 ```
+
+### Components
+
+You may extract out shared elements that do not exactly fit into the page inheritance structure as components, and mount them in your pages.
+
+```crystal
+require "markout/html"
+
+# Create your own base component
+abstract struct BaseComponent
+  include Markout::HTML::Component
+
+  # Use this to change HTML version
+  #private def html_version : Markout::HTML::Version
+  #  Markout::XHTML_1_1
+  #end
+end
+
+# Create the component
+struct MyFirstComponent < BaseComponent
+  def initialize(@users : Array(Hash(String, String)))
+  end
+
+  # Define the required `#render` method
+  private def render(m : Markout::HTML) : Nil
+    m.ul class: "users" do |m|
+      @users.each do |user|
+        m.li class: "user" do |m|
+          m.text user["name"]
+        end
+      end
+    end
+  end
+end
+
+# Mount the component (with `Markout::HTML#mount`)
+struct MySecondPage < BasePage
+  def initialize(@users : Array(Hash(String, String)))
+  end
+
+  private def head_content(m : Markout::HTML) : Nil
+    m.title &.text "Component test"
+  end
+
+  private def body_content(m : Markout::HTML) : Nil
+    m.div class: "users-wrap" do |m|
+      m.mount MyFirstComponent, @users # Or `m.mount MyFirstComponent.new(@users)`
+    end
+  end
+end
+
+#users = [{"name" => "Kofi"}, {"name" => "Ama"}, {"name" => "Nana"}]
+#puts MySecondPage.new(users)
+```
+
+A component may accept a block, or named arguments, or both:
+
+```crystal
+# Create the component
+struct MyLinkComponent < BaseComponent
+  @r : String
+
+  def initialize(url : String, **opts, &b : Proc(Markout::HTML, Nil))
+    @r = render(url, **opts, &b)
+  end
+
+  private def render(m : Markout::HTML) : Nil
+    m.raw @r
+  end
+
+  private def render(url : String, **opts, & : Proc(Markout::HTML, Nil)) : String
+    yield (a = Markout.html html_version)
+    args = opts.merge({href: @url})
+    args = {class: "link"}.merge args
+    m = Markout.html html_version
+    m.a **args do |m|
+      m.raw(a)
+    end
+    m.to_s
+  end
+end
+
+# Mount the component
+struct MyThirdPage < BasePage
+  private def body_content(m : Markout::HTML) : Nil
+    m.div class: "link-wrap" do |m|
+      m.mount MyLinkComponent, "http://ab.c",
+      class: "x-link", id: "my-link" do |m|
+        m.img src: "abc.img"
+      end
+    end
+  end
+end
+
+puts MyThirdPage.new
+# => ...
+# => <div class='link-wrap'>\
+# =>   <a class='x-link' id='my-link' href='http://ab.c'>\
+# =>     <img src='abc.img' />\
+# =>   </a>\
+# => </div>
+# => ...
+```
+
+### Handy methods
+
+Apart from calling regular HTML tags as methods, the following methods are available:
+
+- `Markout::HTML#text(text : String)`: Use this to render escaped text
+- `Markout::HTML#raw(text : String)`: Use this render unescaped text
 
 ## Alternatives
 
@@ -189,8 +304,3 @@ Kindly report suspected security vulnerabilities in private, via contact details
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create a new Pull Request
-
-## Contributors
-
-- [@GrottoPress](https://github.com/grottopress) (creator, maintainer)
-- [@akadusei](https://github.com/akadusei)
