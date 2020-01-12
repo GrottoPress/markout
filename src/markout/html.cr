@@ -119,7 +119,12 @@ module Markout
     private def build_attrs(attrs : NamedTuple = NamedTuple.new) : String
       attr_str = attrs.map do |key, val|
         k = key.to_s.downcase.gsub /[^a-z0-9\-]/, '-'
-        val.nil? ? k : "#{k}='#{esc(val)}'"
+
+        if val.nil?
+          xhtml? ? "#{k}='#{esc(k)}'" : k
+        else
+          "#{k}='#{esc(val)}'"
+        end
       end
 
       attr_str.empty? ? "" : " #{attr_str.join(' ')}"

@@ -174,11 +174,21 @@ describe Markout::HTML do
   describe "#input" do
     context "called with a `nil` attribute value" do
       it "returns valid element with a valueless boolean attribute" do
-        m = Markout.html :xhtml_1_1
+        m = Markout.html
 
         m.input class: "foo", disabled: nil, Type: "submit"
 
-        m.to_s.should eq("<input class='foo' disabled type='submit' />")
+        m.to_s.should eq("<input class='foo' disabled type='submit'>")
+      end
+    end
+
+    context "called with a `nil` attribute value" do
+      it "returns valid element with a valid xhtml boolean attribute" do
+        m = Markout.html :xhtml_1_1
+
+        m.input disabled: nil, type: "submit"
+
+        m.to_s.should eq("<input disabled='disabled' type='submit' />")
       end
     end
 
