@@ -157,9 +157,11 @@ abstract struct BasePage
     end
   end
 
-  private abstract def head_content(m : Markout::HTML) : Nil
+  private def head_content(m : Markout::HTML) : Nil
+  end
 
-  private abstract def body_content(m : Markout::HTML) : Nil
+  private def body_content(m : Markout::HTML) : Nil
+  end
 end
 
 # Now, create a page
