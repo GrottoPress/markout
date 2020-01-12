@@ -249,7 +249,7 @@ struct MyLinkComponent < BaseComponent
 
   private def render(url : String, **opts, & : Proc(Markout::HTML, Nil)) : String
     yield (a = Markout.html html_version)
-    args = opts.merge({href: @url})
+    args = opts.merge({href: url})
     args = {class: "link"}.merge args
     m = Markout.html html_version
     m.a **args do |m|
