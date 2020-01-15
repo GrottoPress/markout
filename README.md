@@ -157,9 +157,11 @@ abstract struct BasePage
     end
   end
 
-  private abstract def head_content(m : Markout::HTML) : Nil
+  private def head_content(m : Markout::HTML) : Nil
+  end
 
-  private abstract def body_content(m : Markout::HTML) : Nil
+  private def body_content(m : Markout::HTML) : Nil
+  end
 end
 
 # Now, create a page
@@ -247,7 +249,7 @@ struct MyLinkComponent < BaseComponent
 
   private def render(url : String, **opts, & : Proc(Markout::HTML, Nil)) : String
     yield (a = Markout.html html_version)
-    args = opts.merge({href: @url})
+    args = opts.merge({href: url})
     args = {class: "link"}.merge args
     m = Markout.html html_version
     m.a **args do |m|
