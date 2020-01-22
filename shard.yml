@@ -11,3 +11,8 @@ license: MIT
 
 description: |
   An awesome Crystal DSL for HTML
+
+development_dependencies:
+  onyx-http:
+    github: onyxframework/http
+    version: ~> 0.9.0

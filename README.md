@@ -253,7 +253,7 @@ struct MyLinkComponent < BaseComponent
     args = {class: "link"}.merge args
     m = Markout.html html_version
     m.a **args do |m|
-      m.raw(a)
+      m.raw a
     end
     m.to_s
   end
@@ -287,6 +287,50 @@ Apart from calling regular HTML tags as methods, the following methods are avail
 
 - `Markout::HTML#text(text : String)`: Use this to render escaped text
 - `Markout::HTML#raw(text : String)`: Use this render unescaped text
+
+## Integrations
+
+### Onyx Framework
+
+When using **Markout** with [Onyx framework](https://onyxframework.org), you should, additionally, `require "markout/onyx"`:
+
+```crystal
+require "onyx/http"
+require "markout/html"
+require "markout/onyx"
+```
+
+**Markout** adds a `.html` macro to `Onyx::HTTP::View` that renders a html page for requests with `Accept` header of `text/html`.
+
+```crystal
+require "onyx/http"
+require "markout/html"
+require "markout/onyx"
+
+class MyOnyxView
+  include Onyx::HTTP::View
+
+  html MyPage, title: "My Onyx View"
+  # Same as `html MyPage.new(title: "My Onyx View")`
+end
+```
+
+In `Onyx::HTTP::Endpoint`, **Markout** adds a `#view` method overload that accepts a view class name with arguments, instead of a view object.
+
+```crystal
+require "onyx/http"
+require "markout/html"
+require "markout/onyx"
+
+class MyOnyxEndpoint
+  include Onyx::HTTP::Endpoint
+
+  def call
+    view MyOnyxView, arg, arg2
+    # Same as `view MyOnyxView.new(arg, arg2)`
+  end
+end
+```
 
 ## Alternatives
 
