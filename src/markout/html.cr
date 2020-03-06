@@ -2,7 +2,7 @@ require "html"
 
 require "./version"
 require "./html/tags"
-require "./html/**"
+require "./html/*"
 
 module Markout
   HTML_4_01 = HTML::Version::HTML_4_01
