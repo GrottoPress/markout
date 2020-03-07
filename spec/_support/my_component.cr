@@ -1,11 +1,11 @@
 struct MyComponent < BaseComponent
-  def initialize(@users : Array(String))
-    render
+  def initialize(users : Array(String))
+    render(users)
   end
 
-  private def render : Nil
+  private def render(users : Array(String)) : Nil
     ul class: "users" do
-      @users.each do |user|
+      users.each do |user|
         li class: "user" do
           mount MyLinkComponent, user, "##{user}", class: "user-link"
           # a user, class: "user-link", href: "##{user}"
