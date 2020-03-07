@@ -1,24 +1,20 @@
 module Markout::HTML::Page
+  include HTML
+
   def to_s(io : IO) : Nil
-    m = HTML.new html_version
+    doctype
 
-    m.doctype
-
-    m.html **html_tag_attr do |m|
-      m.head **head_tag_attr do |m|
-        inside_head m
+    html **html_tag_attr do
+      head **head_tag_attr do
+        inside_head
       end
 
-      m.body **body_tag_attr do |m|
-        inside_body m
+      body **body_tag_attr do
+        inside_body
       end
     end
 
-    io << m
-  end
-
-  private def html_version : Version
-    Version::HTML_5
+    io << @view
   end
 
   private def html_tag_attr : NamedTuple
@@ -33,7 +29,9 @@ module Markout::HTML::Page
     NamedTuple.new
   end
 
-  private abstract def inside_head(m : HTML) : Nil
+  private def inside_head : Nil
+  end
 
-  private abstract def inside_body(m : HTML) : Nil
+  private def inside_body : Nil
+  end
 end

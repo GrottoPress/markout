@@ -1,7 +1,7 @@
 abstract struct BaseComponent
   include Markout::HTML::Component
 
-  private def html_version : Markout::HTML::Version
-    Markout::XHTML_1_1
+  private def version : Version
+    Version::XHTML_1_0
   end
 end

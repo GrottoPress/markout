@@ -1,29 +1,12 @@
 struct MyLinkComponent < BaseComponent
-  @r : String
-
-  def initialize(url : String, **opts, &b : Proc(Markout::HTML, Nil))
-    @r = render(url, **opts, &b)
+  def initialize(label : String, url : String, **opts)
+    render(label, url, **opts)
   end
 
-  private def render(m : Markout::HTML) : Nil
-    m.raw @r
-  end
-
-  private def render(
-    url : String,
-    **opts,
-    & : Proc(Markout::HTML, Nil)
-  ) : String
-    yield (a = Markout.html html_version)
-
+  private def render(label : String, url : String, **opts) : Nil
     args = opts.merge({href: url})
-    args = {class: "link"}.merge args
+    args = {class: "link"}.merge(args)
 
-    m = Markout.html html_version
-    m.a **args do |m|
-      m.raw(a)
-    end
-
-    m.to_s
+    a label, **args
   end
 end

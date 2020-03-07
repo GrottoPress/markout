@@ -1,4 +1,4 @@
-class Markout::HTML
+module Markout::HTML
   private VOID_TAGS = %i(
     area
     base

@@ -1,10 +1,6 @@
 abstract struct BasePage
   include Markout::HTML::Page
 
-  private def html_version : Markout::HTML::Version
-    Markout::HTML_5
-  end
-
   private def head_tag_attr : NamedTuple
     {profile: "http://ab.c"}
   end
@@ -13,27 +9,27 @@ abstract struct BasePage
     {class: "my-body-class"}
   end
 
-  private def inside_head(m : Markout::HTML) : Nil
-    m.meta charset: "UTF-8"
-    head_content m
+  private def inside_head : Nil
+    meta charset: "UTF-8"
+    head_content
   end
 
-  private def inside_body(m : Markout::HTML) : Nil
-    m.header id: "header" do |m|
-      m.h1 &.text "My First Heading Level"
-      m.p &.text "An awesome description"
+  private def inside_body : Nil
+    header id: "header" do
+      h1 "My First Heading Level", class: "heading"
+      p "An awesome description", class: "description"
     end
 
-    body_content m
+    body_content
 
-    m.footer id: "footer" do |m|
-      m.raw "<!-- I'm unescaped -->"
+    footer id: "footer" do
+      raw "<!-- I'm unescaped -->"
     end
   end
 
-  private def head_content(m : Markout::HTML) : Nil
+  private def head_content : Nil
   end
 
-  private def body_content(m : Markout::HTML) : Nil
+  private def body_content : Nil
   end
 end

@@ -11,6 +11,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Add support for Crystal version 0.33.0
 - Add support for [Onyx framework](https://onyxframework.org)
 
+### Changed
+- Convert `Markout::HTML` from a class into a module
+
 ## [0.6.1] - 2020-01-15
 
 ### Fixed

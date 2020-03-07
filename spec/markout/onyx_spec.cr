@@ -13,12 +13,12 @@ end
 
 class MyOnyxPageClassView
   include Onyx::HTTP::View
-  html MyPage, title: "My Onyx Page Class View"
+  html MyHtml5Page, title: "My Onyx Page Class View"
 end
 
 class MyOnyxPageObjectView
   include Onyx::HTTP::View
-  html MyPage.new(title: "My Onyx Page Object View")
+  html MyHtml5Page.new(title: "My Onyx Page Object View")
 end
 
 describe Onyx::HTTP::Endpoint do
@@ -52,10 +52,10 @@ describe Onyx::HTTP::View do
             </head>\
             <body class='my-body-class'>\
               <header id='header'>\
-                <h1>My First Heading Level</h1>\
-                <p>An awesome description</p>\
+                <h1 class='heading'>My First Heading Level</h1>\
+                <p class='description'>An awesome description</p>\
               </header>\
-              <p>Hello from markout!</p>\
+              <p>This is a HTML 5 page</p>\
               <footer id='footer'>\
                 <!-- I'm unescaped -->\
               </footer>\
@@ -81,10 +81,10 @@ describe Onyx::HTTP::View do
             </head>\
             <body class='my-body-class'>\
               <header id='header'>\
-                <h1>My First Heading Level</h1>\
-                <p>An awesome description</p>\
+                <h1 class='heading'>My First Heading Level</h1>\
+                <p class='description'>An awesome description</p>\
               </header>\
-              <p>Hello from markout!</p>\
+              <p>This is a HTML 5 page</p>\
               <footer id='footer'>\
                 <!-- I'm unescaped -->\
               </footer>\

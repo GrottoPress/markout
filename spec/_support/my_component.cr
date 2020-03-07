@@ -1,12 +1,14 @@
 struct MyComponent < BaseComponent
-  def initialize(@users : Array(Hash(String, String)))
+  def initialize(@users : Array(String))
+    render
   end
 
-  private def render(m : Markout::HTML) : Nil
-    m.ul class: "users" do |m|
+  private def render : Nil
+    ul class: "users" do
       @users.each do |user|
-        m.li class: "user" do |m|
-          m.text user["name"]
+        li class: "user" do
+          mount MyLinkComponent, user, "##{user}", class: "user-link"
+          # a user, class: "user-link", href: "##{user}"
         end
       end
     end
