@@ -1,5 +1,5 @@
 struct MyComponent < BaseComponent
-  def initialize(users : Array(String))
+  def initialize(users : Array(String)) : Nil
     render(users)
   end
 

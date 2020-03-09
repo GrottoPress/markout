@@ -144,7 +144,7 @@ end
 
 # Create the component
 struct MyFirstComponent < BaseComponent
-  def initialize(users : Array(String))
+  def initialize(users : Array(String)) : Nil
     render(users)
   end
 
@@ -160,7 +160,7 @@ end
 
 # Mount the component
 struct MySecondPage < BasePage
-  def initialize(@users : Array(String))
+  def initialize(@users : Array(String)) : Nil
   end
 
   private def head_content : Nil
@@ -182,7 +182,7 @@ A component may accept named arguments:
 ```crystal
 # Create the component
 struct MyLinkComponent < BaseComponent
-  def initialize(label : String, url : String, **opts)
+  def initialize(label : String, url : String, **opts) : Nil
     render(label, url, **opts)
   end
 

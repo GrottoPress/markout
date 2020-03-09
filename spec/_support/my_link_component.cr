@@ -1,5 +1,5 @@
 struct MyLinkComponent < BaseComponent
-  def initialize(label : String, url : String, **opts)
+  def initialize(label : String, url : String, **opts) : Nil
     render(label, url, **opts)
   end
 

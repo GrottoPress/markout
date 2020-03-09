@@ -1,5 +1,5 @@
 struct MyHtml5Page < BasePage
-  def initialize(@title : String = "HTML 5")
+  def initialize(@title : String = "HTML 5") : Nil
   end
 
   private def head_content : Nil
