@@ -4,7 +4,42 @@
 
 **Markout** ensures type-safe HTML with valid syntax, and automatically escapes attribute values.
 
-**Markout** supports HTML 4 and 5, and XHTML
+**Markout** supports HTML 4 and 5, and XHTML.
+
+### Examples:
+
+```crystal
+p "A paragraph"
+# => <p>A paragraph</p>
+
+p do
+  text "A paragraph"
+end
+# => <p>A paragraph</p>
+
+h1 "A first-level heading", class: "heading"
+# => <h1 class='heading'>A first-level heading</h1>
+
+h1 class: "heading" do
+  text "A first-level heading"
+end
+# => <h1 class='heading'>A first-level heading</h1>
+
+ul id: "a-wrapper", class: "list-wrap" do
+  ["aa", "bb", "cc"].each do |x|
+    li x, class: "list-item"
+  end
+end
+# => <ul id='a-wrapper' class='list-wrap'>
+# =>   <li class='list-item'>aa</li>
+# =>   <li class='list-item'>bb</li>
+# =>   <li class='list-item'>cc</li>
+# => </ul>
+
+input type: "checkbox", checked: nil
+# => HTML 4, 5: <input type='checkbox' checked>
+# => XHTML: <input type='checkbox' checked='checked' />
+```
 
 ## Installation
 
@@ -224,6 +259,16 @@ end
 # => <MyApp title='My Awesome App'>\
 # =>   <p>My app is the best.</p>\
 # => </MyApp>
+
+tag :MyApp, title: "My Awesome App"
+# => <MyApp title='My Awesome App' />
+
+tag :cuboid, width: 4, height: 3, length: 2 do
+  text "A cuboid"
+end
+# => <cuboid width='4' height='3' length='2'>
+# =>   A cuboid
+# => </cuboid>
 ```
 
 ### Handy methods
