@@ -97,7 +97,9 @@ puts MyFirstPage.new
 # =>       <h1 class='heading'>My First Heading Level</h1>\
 # =>       <p class='description'>An awesome description</p>\
 # =>     </header>\
-# =>     <p>Hello from Markout!</p>\
+# =>     <main id='main'>\
+# =>       <p>Hello from Markout!</p>\
+# =>     </main>\
 # =>     <footer id='footer'>\
 # =>       <!-- I'm unescaped -->\
 # =>     </footer>\
