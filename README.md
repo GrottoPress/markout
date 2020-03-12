@@ -31,10 +31,10 @@ ul id: "a-wrapper", class: "list-wrap" do
   end
 end
 # => <ul id='a-wrapper' class='list-wrap'>
-# =>   <li class='list-item'>aa</li>
-# =>   <li class='list-item'>bb</li>
-# =>   <li class='list-item'>cc</li>
-# => </ul>
+#      <li class='list-item'>aa</li>
+#      <li class='list-item'>bb</li>
+#      <li class='list-item'>cc</li>
+#    </ul>
 
 input type: "checkbox", checked: nil
 # => HTML 4, 5: <input type='checkbox' checked>
@@ -122,24 +122,24 @@ end
 
 puts MyFirstPage.new
 # => <!DOCTYPE html>\
-# => <html lang='en'>\
-# =>   <head profile='http://ab.c'>\
-# =>     <meta charset='UTF-8'>\
-# =>     <title>My First Page</title>\
-# =>   </head>\
-# =>   <body class='my-body-class'>\
-# =>     <header id='header'>\
-# =>       <h1 class='heading'>My First Heading Level</h1>\
-# =>       <p class='description'>An awesome description</p>\
-# =>     </header>\
-# =>     <main id='main'>\
-# =>       <p>Hello from Markout!</p>\
-# =>     </main>\
-# =>     <footer id='footer'>\
-# =>       <!-- I'm unescaped -->\
-# =>     </footer>\
-# =>   </body>\
-# => </html>
+#    <html lang='en'>\
+#      <head profile='http://ab.c'>\
+#        <meta charset='UTF-8'>\
+#        <title>My First Page</title>\
+#      </head>\
+#      <body class='my-body-class'>\
+#        <header id='header'>\
+#          <h1 class='heading'>My First Heading Level</h1>\
+#          <p class='description'>An awesome description</p>\
+#        </header>\
+#        <main id='main'>\
+#          <p>Hello from Markout!</p>\
+#        </main>\
+#        <footer id='footer'>\
+#          <!-- I'm unescaped -->\
+#        </footer>\
+#      </body>\
+#    </html>
 
 # OR, SERVE IT TO THE BROWSER
 
@@ -242,10 +242,10 @@ end
 
 puts MyThirdPage.new
 # => ...
-# => <div class='link-wrap'>\
-# =>   <a class='x-link' id='my-link' href='http://ab.c'>Abc</a>\
-# => </div>
-# => ...
+#    <div class='link-wrap'>\
+#      <a class='x-link' id='my-link' href='http://ab.c'>Abc</a>\
+#    </div>
+#    ...
 ```
 
 ### Custom Tags
@@ -257,8 +257,8 @@ tag :MyApp, title: "My Awesome App" do
   p "My app is the best."
 end
 # => <MyApp title='My Awesome App'>\
-# =>   <p>My app is the best.</p>\
-# => </MyApp>
+#      <p>My app is the best.</p>\
+#    </MyApp>
 
 tag :MyApp, title: "My Awesome App"
 # => <MyApp title='My Awesome App' />
@@ -267,8 +267,8 @@ tag :cuboid, width: 4, height: 3, length: 2 do
   text "A cuboid"
 end
 # => <cuboid width='4' height='3' length='2'>
-# =>   A cuboid
-# => </cuboid>
+#      A cuboid
+#    </cuboid>
 ```
 
 ### Handy methods
