@@ -280,6 +280,124 @@ Apart from calling regular HTML tags as methods, the following methods are avail
 
 ## Integrations
 
+### Amber Framework
+
+When using **Markout** with [Amber framework](https://amberframework.org/), you should, additionally, `require "markout/amber"`:
+
+```crystal
+require "amber"
+require "markout/html"
+require "markout/amber"
+```
+
+**Markout** comes with `Markout::Amber::HTML` mixin, for including in your pages and components, and `Markout::Amber::Controller` for your controllers.
+
+These make all controller methods available in your pages. You may, thus, call controller methods in your pages without an explicit receiver.
+
+Define your components and pages as usual, with `@controller` as first parameter to the constructor.
+
+```crystal
+require "amber"
+require "markout/html"
+require "markout/amber"
+
+# Define your base component
+#
+# Be sure to `include Markout::Amber::HTML`
+abstract struct BaseComponent
+  include Markout::HTML::Component
+  include Markout::Amber::HTML
+
+  # Set HTML version
+  #
+  # Versions:
+  #   `Version::HTML_5` (default)
+  #   `Version::XHTML_1_1`
+  #   `Version::XHTML_1_0`
+  #   `Version::HTML_4_01`
+  #private def version : Version
+  #  Version::XHTML_1_1
+  #end
+end
+
+# Define components as usual
+#
+# Always pass `@controller` as first parameter
+# to the constructor
+struct MyAmberComponent < BaseComponent
+  def initialize(@controller : Amber::Controller::Base)
+    render
+  end
+
+  private def render
+    small "My Amber Component"
+  end
+end
+
+# Define your base page
+#
+# Be sure to `include Markout::Amber::HTML`
+abstract struct BasePage
+  include Markout::HTML::Page
+  include Markout::Amber::HTML
+
+  # Set HTML version
+  #
+  # Versions:
+  #   `Version::HTML_5` (default)
+  #   `Version::XHTML_1_1`
+  #   `Version::XHTML_1_0`
+  #   `Version::HTML_4_01`
+  #private def version : Version
+  #  Version::XHTML_1_1
+  #end
+
+  # ...
+end
+
+# Define pages as usual
+#
+# Always pass `@controller` as first parameter
+# to the constructor
+struct MyAmberPage < BasePage
+  def initialize(@controller : Amber::Controller::Base, @title : String) : Nil
+  end
+
+  private def head_content : Nil
+    title @title
+  end
+
+  private def body_content : Nil
+    # controller methods can be called explicitly
+    # Here, `#flash` is made available by the controller
+    flash.each do |key, value|
+      p value
+    end
+
+    p "This is a Amber page"
+
+    mount MyAmberComponent
+  end
+end
+
+# Define your base controller
+#
+# Be sure to `include Markout::Amber::Controller`
+abstract class ApplicationController < Amber::Controller::Base
+  include Markout::Amber::Controller
+  # ...
+end
+
+# Render page in controller's action
+class MyAmberController < ApplicationController
+  def index
+    flash[:hello] = "Hello amber"
+    render MyAmberPage, "Amber page title"
+    # Same as `render MyAmberPage.new(self, "Amber page title")`
+  end
+end
+```
+
 ### Onyx Framework
 
 When using **Markout** with [Onyx framework](https://onyxframework.org), you should, additionally, `require "markout/onyx"`:
