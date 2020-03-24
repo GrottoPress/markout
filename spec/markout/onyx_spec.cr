@@ -37,7 +37,7 @@ end
 
 describe Onyx::HTTP::View do
   describe ".html" do
-    context "give a page class" do
+    context "given a page class" do
       it "renders page to io" do
         memory = IO::Memory.new
         MyOnyxPageClassView.new.render_to_text_html(memory)
@@ -66,7 +66,7 @@ describe Onyx::HTTP::View do
       end
     end
 
-    context "give a page object" do
+    context "given a page object" do
       it "renders page to io" do
         memory = IO::Memory.new
         MyOnyxPageObjectView.new.render_to_text_html(memory)
