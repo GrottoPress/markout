@@ -2,7 +2,13 @@ module Markout::Amber::HTML
   def initialize(@controller : ::Amber::Controller::Base) : Nil
   end
 
-  forward_missing_to @controller
+  delegate :csrf_metatag,
+    :csrf_tag,
+    :csrf_token,
+    :flash,
+    :l,
+    :t,
+    to: @controller
 
   private def mount(
     component : Markout::HTML::Component.class,
