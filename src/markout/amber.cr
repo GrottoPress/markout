@@ -20,14 +20,10 @@ end
 
 module Markout::Amber::Controller
   protected def render(
-    __ page : Markout::HTML::Page.class,
+    page : Markout::HTML::Page.class,
     *args,
     **kwargs
   ) : String
-    self.render page.new(self, *args, **kwargs)
-  end
-
-  protected def render(page : Markout::HTML::Page) : String
-    page.to_s
+    page.new(self, *args, **kwargs).to_s
   end
 end
