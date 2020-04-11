@@ -107,12 +107,37 @@ describe Markout::HTML do
             <h1 class='heading'>My First Heading Level</h1>\
             <p class='description'>An awesome description</p>\
           </header>\
-          <p>This is a HTML 5 page</p>\
+          <p data-foo='bar'>This is a HTML 5 page</p>\
           <footer id='footer'>\
             <!-- I'm unescaped -->\
           </footer>\
         </body>\
       </html>
+      HTML
+    )
+  end
+
+  it "renders vue component accurately" do
+    MyVueComponent.new.to_s.should eq(
+      <<-HTML
+      <div id='app'>\
+        <span v-bind:foo.bar='message'>{{ message }}</span>\
+        <button @click='myClickHandler'>Click me!</button>\
+      </div>\
+      <script>\
+        const app = new Vue({\
+          el: '#app',\
+          data: {\
+            message: 'Hello there!'\
+          },\
+          methods: {\
+            myClickHandler: e => {\
+              e.preventDefault()\
+              /*...*/\
+            }\
+          }\
+        })\
+      </script>
       HTML
     )
   end

@@ -55,7 +55,7 @@ describe Onyx::HTTP::View do
                 <h1 class='heading'>My First Heading Level</h1>\
                 <p class='description'>An awesome description</p>\
               </header>\
-              <p>This is a HTML 5 page</p>\
+              <p data-foo='bar'>This is a HTML 5 page</p>\
               <footer id='footer'>\
                 <!-- I'm unescaped -->\
               </footer>\
@@ -84,7 +84,7 @@ describe Onyx::HTTP::View do
                 <h1 class='heading'>My First Heading Level</h1>\
                 <p class='description'>An awesome description</p>\
               </header>\
-              <p>This is a HTML 5 page</p>\
+              <p data-foo='bar'>This is a HTML 5 page</p>\
               <footer id='footer'>\
                 <!-- I'm unescaped -->\
               </footer>\

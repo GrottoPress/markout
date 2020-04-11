@@ -7,6 +7,6 @@ struct MyHtml5Page < BasePage
   end
 
   private def body_content : Nil
-    p "This is a HTML 5 page"
+    p "This is a HTML 5 page", "data-foo": "bar"
   end
 end

@@ -235,7 +235,7 @@ end
 struct MyThirdPage < BasePage
   private def body_content : Nil
     div class: "link-wrap" do
-      mount MyLinkComponent, "Abc", "http://ab.c", class: "x-link", id: "my-link"
+      mount MyLinkComponent, "Abc", "http://ab.c", class: "x-link", "data-foo": "bar"
     end
   end
 end
@@ -243,7 +243,7 @@ end
 puts MyThirdPage.new
 # => ...
 #    <div class='link-wrap'>\
-#      <a class='x-link' id='my-link' href='http://ab.c'>Abc</a>\
+#      <a class='x-link' data-foo='bar' href='http://ab.c'>Abc</a>\
 #    </div>
 #    ...
 ```

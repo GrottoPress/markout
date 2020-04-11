@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Added
 - Add support for [Amber framework](https://amberframework.org)
+- Add support for [Vue JS](https://vuejs.org) template syntax
 
 ## [0.7.0] - 2020-03-09
 

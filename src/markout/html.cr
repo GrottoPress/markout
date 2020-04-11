@@ -94,7 +94,7 @@ module Markout::HTML
 
   private def build_attrs(attrs = NamedTuple.new) : String
     attr_str = attrs.map do |key, val|
-      k = key.to_s.downcase.gsub /[^a-z0-9\-]/, '-'
+      k = key.to_s.downcase.gsub /[^a-z0-9\-\_\@\:\.]/, '-'
 
       if val.nil?
         xhtml? ? "#{k}='#{esc(k)}'" : k
