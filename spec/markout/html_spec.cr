@@ -120,10 +120,12 @@ describe Markout::HTML do
   it "renders vue component accurately" do
     MyVueComponent.new.to_s.should eq(
       <<-HTML
-      <div id='app'>\
-        <span v-bind:foo.bar='message'>{{ message }}</span>\
-        <button @click='myClickHandler'>Click me!</button>\
-      </div>\
+      <template>\
+        <div id='app'>\
+          <span v-bind:foo.bar='message'>{{ message }}</span>\
+          <button @click='myClickHandler'>Click me!</button>\
+        </div>\
+      </template>\
       <script>\
         const app = new Vue({\
           el: '#app',\

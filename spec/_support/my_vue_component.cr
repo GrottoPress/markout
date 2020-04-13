@@ -5,9 +5,11 @@ struct MyVueComponent < BaseComponent
   end
 
   private def render_html : Nil
-    div id: "app" do
-      span "{{ message }}", "v-bind:foo.bar": "message"
-      button "Click me!", "@click": "myClickHandler"
+    tag :template do
+      div id: "app" do
+        span "{{ message }}", "v-bind:foo.bar": "message"
+        button "Click me!", "@click": "myClickHandler"
+      end
     end
   end
 
