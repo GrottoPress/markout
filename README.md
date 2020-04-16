@@ -290,9 +290,9 @@ require "markout/html"
 require "markout/amber"
 ```
 
-**Markout** comes with `Markout::Amber::HTML` mixin, for including in your pages and components, and `Markout::Amber::Controller` for your controllers.
+**Markout** comes with `Markout::Amber::HTML` mixin, for including in your pages and components.
 
-These make certain controller methods available in your pages. You may, thus, call these controller methods in your pages without an explicit receiver.
+This makes certain controller methods available in your pages. You may, thus, call these controller methods in your pages without an explicit receiver.
 
 Define your components and pages as usual, with `@controller` as first parameter to the constructor.
 
@@ -381,11 +381,7 @@ struct MyAmberPage < BasePage
 end
 
 # Define your base controller
-#
-# Be sure to `include Markout::Amber::Controller`
 abstract class ApplicationController < Amber::Controller::Base
-  include Markout::Amber::Controller
-  # ...
 end
 
 # Render page in controller's action

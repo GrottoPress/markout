@@ -37,8 +37,6 @@ struct MyAmberPage < BasePage
 end
 
 class MyAmberController < Amber::Controller::Base
-  include Markout::Amber::Controller
-
   def index
     flash[:hello] = "Hello amber"
     render MyAmberPage, "Amber Page"

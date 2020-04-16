@@ -18,8 +18,8 @@ module Markout::Amber::HTML
   end
 end
 
-module Markout::Amber::Controller
-  protected def render(
+class Amber::Controller::Base
+  private def render(
     page : Markout::HTML::Page.class,
     *args,
     **kwargs
