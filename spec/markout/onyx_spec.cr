@@ -13,12 +13,12 @@ end
 
 class MyOnyxPageClassView
   include Onyx::HTTP::View
-  html MyHtml5Page, title: "My Onyx Page Class View"
+  markout MyHtml5Page, title: "My Onyx Page Class View"
 end
 
 class MyOnyxPageObjectView
   include Onyx::HTTP::View
-  html MyHtml5Page.new(title: "My Onyx Page Object View")
+  markout MyHtml5Page.new(title: "My Onyx Page Object View")
 end
 
 describe Onyx::HTTP::Endpoint do

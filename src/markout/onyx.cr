@@ -6,7 +6,7 @@ module Onyx::HTTP
   end
 
   module View
-    macro html(
+    macro markout(
       page,
       *args,
       content_type = "text/html",

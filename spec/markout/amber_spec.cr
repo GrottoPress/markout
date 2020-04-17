@@ -39,7 +39,7 @@ end
 class MyAmberController < Amber::Controller::Base
   def index
     flash[:hello] = "Hello amber"
-    render MyAmberPage, "Amber Page"
+    markout MyAmberPage, "Amber Page"
   end
 end
 

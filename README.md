@@ -384,12 +384,12 @@ end
 abstract class ApplicationController < Amber::Controller::Base
 end
 
-# Render page in controller's action
+# Render page in controller's action with `#markout`
 class MyAmberController < ApplicationController
   def index
     flash[:hello] = "Hello amber"
-    render MyAmberPage, "Amber page title"
-    # Same as `render MyAmberPage.new(self, "Amber page title")`
+    markout MyAmberPage, "Amber page title"
+    # Same as `markout MyAmberPage.new(self, "Amber page title")`
   end
 end
 ```
@@ -404,7 +404,7 @@ require "markout/html"
 require "markout/onyx"
 ```
 
-**Markout** adds a `.html` macro to `Onyx::HTTP::View` that renders a html page for requests with `Accept` header of `text/html`.
+**Markout** adds a `.markout` macro to `Onyx::HTTP::View` that renders a html page for requests with `Accept` header of `text/html`.
 
 ```crystal
 require "onyx/http"
@@ -414,8 +414,8 @@ require "markout/onyx"
 class MyOnyxView
   include Onyx::HTTP::View
 
-  html MyPage, title: "My Onyx View"
-  # Same as `html MyPage.new(title: "My Onyx View")`
+  markout MyPage, title: "My Onyx View"
+  # Same as `markout MyPage.new(title: "My Onyx View")`
 end
 ```
 
