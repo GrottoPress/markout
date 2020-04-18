@@ -3,7 +3,7 @@ dist: xenial
 sudo: false
 
 crystal:
-  - latest
+  - "0.33.0"
   - nightly
 
 install: shards install
