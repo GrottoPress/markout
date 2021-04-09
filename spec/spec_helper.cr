@@ -1,4 +1,4 @@
 require "spec"
 
-require "../src/markout/html"
+require "../src/markout"
 require "./_support/*"

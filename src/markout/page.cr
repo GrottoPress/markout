@@ -1,5 +1,5 @@
-module Markout::HTML::Page
-  include HTML
+module Markout::Page
+  include Markout
 
   def to_s(io : IO) : Nil
     doctype

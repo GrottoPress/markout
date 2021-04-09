@@ -1,5 +1,5 @@
 abstract struct BasePage
-  include Markout::HTML::Page
+  include Markout::Page
 
   private def head_tag_attr : NamedTuple
     {profile: "http://ab.c"}

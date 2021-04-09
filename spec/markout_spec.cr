@@ -1,6 +1,6 @@
-require "../spec_helper"
+require "./spec_helper"
 
-describe Markout::HTML do
+describe Markout do
   it "renders XHTML 4.01 page correctly" do
     MyHtml401Page.new.to_s.should eq(
       <<-HTML

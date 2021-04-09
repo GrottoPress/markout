@@ -58,12 +58,12 @@ dependencies:
 With **Markout**, pages are created using regular Crystal structs and classes. **Markout** comes with a page mixin, which child pages can `include`, and override specific methods for their own use case:
 
 ```crystal
-require "markout/html"
+require "markout"
 
 # Create your own base page
 abstract struct BasePage
   # Include the page mixin
-  include Markout::HTML::Page
+  include Markout::Page
 
   # Set HTML version
   #
@@ -161,11 +161,11 @@ server.listen
 You may extract out shared elements that do not exactly fit into the page inheritance structure as components, and mount them in your pages:
 
 ```crystal
-require "markout/html"
+require "markout"
 
 # Create your own base component
 abstract struct BaseComponent
-  include Markout::HTML::Component
+  include Markout::Component
 
   # Set HTML version
   #
