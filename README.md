@@ -416,48 +416,6 @@ class MyAmberController < ApplicationController
 end
 ```
 
-### Onyx Framework
-
-When using **Markout** with [Onyx framework](https://onyxframework.org), you should, additionally, `require "markout/onyx"`:
-
-```crystal
-require "onyx/http"
-require "markout/html"
-require "markout/onyx"
-```
-
-**Markout** adds a `.markout` macro to `Onyx::HTTP::View` that renders a html page for requests with `Accept` header of `text/html`.
-
-```crystal
-require "onyx/http"
-require "markout/html"
-require "markout/onyx"
-
-class MyOnyxView
-  include Onyx::HTTP::View
-
-  markout MyPage, title: "My Onyx View"
-  # Same as `markout MyPage.new(title: "My Onyx View")`
-end
-```
-
-In `Onyx::HTTP::Endpoint`, **Markout** adds a `#view` method overload that accepts a view class name with arguments, instead of a view object.
-
-```crystal
-require "onyx/http"
-require "markout/html"
-require "markout/onyx"
-
-class MyOnyxEndpoint
-  include Onyx::HTTP::Endpoint
-
-  def call
-    view MyOnyxView, arg, arg2
-    # Same as `view MyOnyxView.new(arg, arg2)`
-  end
-end
-```
-
 ### Generic Renderer
 
 **Markout** comes with a generic renderer module, which can be `include`d in any framework. It provides a helper `#markout` method to render any **Markout** page.

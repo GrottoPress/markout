@@ -13,6 +13,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Add a generic renderer module for generic framework integration
 - Add support for block components
 
+## Remove
+- Remove support for [Onyx framework](https://onyxframework.org)
+
 ## [0.7.0] - 2020-03-09
 
 ### Added
