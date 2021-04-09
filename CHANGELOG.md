@@ -8,7 +8,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased] - 
 
 ### Added
-- Add support for [Amber framework](https://amberframework.org)
 - Add support for [Vue JS](https://vuejs.org) template syntax
 - Add a generic renderer module for generic framework integration
 - Add support for block components
