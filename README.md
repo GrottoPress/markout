@@ -2,9 +2,7 @@
 
 **Markout** is an awesome Crystal DSL for HTML. It enables calling regular HTML tags as methods to generate HTML.
 
-**Markout** ensures type-safe HTML with valid syntax, and automatically escapes attribute values.
-
-**Markout** supports HTML 4 and 5, and XHTML.
+*Markout* ensures type-safe HTML with valid syntax, and automatically escapes attribute values. It supports *HTML 4* and *5*, and *XHTML*.
 
 ### Examples:
 
@@ -48,14 +46,14 @@ Add this to your application's `shard.yml`:
 ```yaml
 dependencies:
   markout:
-    github: grottopress/markout
+    github: GrottoPress/markout
 ```
 
 ## Usage
 
 ### Pages
 
-With **Markout**, pages are created using regular Crystal structs and classes. **Markout** comes with a page mixin, which child pages can `include`, and override specific methods for their own use case:
+With *Markout*, pages are created using regular Crystal structs and classes. *Markout* comes with a page mixin, which child pages can `include`, and override specific methods for their own use case:
 
 ```crystal
 require "markout"
@@ -177,7 +175,7 @@ end
 
 # Create the component
 struct MyFirstComponent < BaseComponent
-  def initialize(users : Array(String)) : Nil
+  def initialize(users : Array(String))
     render(users)
   end
 
@@ -193,7 +191,7 @@ end
 
 # Mount the component
 struct MySecondPage < BasePage
-  def initialize(@users : Array(String)) : Nil
+  def initialize(@users : Array(String))
   end
 
   private def head_content : Nil
@@ -298,19 +296,21 @@ Apart from calling regular HTML tags as methods, the following methods are avail
 
 ## Alternatives
 
-Check out the following, if **Markout** does not fit your needs:
+Check out the following, if *Markout* does not fit your needs:
 
 - [crystal-lang/html_builder](https://github.com/crystal-lang/html_builder)
 - [Lucky framework](https://luckyframework.org/guides/rendering-html/) comes with an in-built html builder.
 
+## Contributing
+
+1. [Fork it](https://github.com/GrottoPress/markout/fork)
+1. Switch to the `master` branch: `git checkout master`
+1. Create your feature branch: `git checkout -b my-new-feature`
+1. Make your changes, updating changelog and documentation as appropriate.
+1. Commit your changes: `git commit`
+1. Push to the branch: `git push origin my-new-feature`
+1. Submit a new *Pull Request* against the `GrottoPress:master` branch.
+
 ## Security
 
 Kindly report suspected security vulnerabilities in private, via contact details outlined in this repository's `.security.txt` file.
-
-## Contributing
-
-1. [Fork it](https://github.com/grottopress/markout/fork)
-1. Create your feature branch (`git checkout -b my-new-feature`)
-1. Commit your changes (`git commit -am 'Add some feature'`)
-1. Push to the branch (`git push origin my-new-feature`)
-1. Create a new Pull Request

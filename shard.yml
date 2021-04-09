@@ -1,9 +1,10 @@
 name: markout
 version: 0.7.0
+description: An awesome Crystal DSL for HTML
 
 authors:
   - GrottoPress <info@grottopress.com>
-  - N Atta Kusi Adusei <attakusiadusei@gmail.com>
+  - N Atta Kusi Adusei
 
 crystal: ~> 1.0
 
