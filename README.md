@@ -300,29 +300,6 @@ Apart from calling regular HTML tags as methods, the following methods are avail
 - `#text(text : String)`: Use this to render escaped text
 - `#raw(text : String)`: Use this render unescaped text
 
-## Integrations
-
-### Generic Renderer
-
-**Markout** comes with a generic renderer module, which can be `include`d in any framework. It provides a helper `#markout` method to render any **Markout** page.
-
-```crystal
-require "quartz_mailer"
-require "markout/html"
-require "markout/renderer"
-
-class MyQuartzMailer < Quartz::Composer
-  include Markout::Renderer
-
-  def initialize(user)
-    # ...
-    #text markout(MyQuartzPage, user)
-    html markout(MyQuartzPage, user)
-    # ...
-  end
-end
-```
-
 ## Alternatives
 
 Check out the following, if **Markout** does not fit your needs:
