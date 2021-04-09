@@ -32,6 +32,9 @@ describe MyMailer do
             <p class='description'>An awesome description</p>\
           </header>\
           <p data-foo='bar'>This is a HTML 5 page</p>\
+          <div class='user'>\
+            <a class='user-link' href='#kofi'>Kofi</a>\
+          </div>\
           <footer id='footer'>\
             <!-- I'm unescaped -->\
           </footer>\
@@ -56,6 +59,9 @@ describe MyMailer do
             <p class='description'>An awesome description</p>\
           </header>\
           <p data-foo='bar'>This is a HTML 5 page</p>\
+          <div class='user'>\
+            <a class='user-link' href='#kofi'>Kofi</a>\
+          </div>\
           <footer id='footer'>\
             <!-- I'm unescaped -->\
           </footer>\

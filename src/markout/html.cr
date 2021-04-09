@@ -14,7 +14,7 @@ module Markout::HTML
     HTML_5
   end
 
-  private def doctype : Nil
+  def doctype : Nil
     case version
     when .html_4_01?
       raw "<!DOCTYPE HTML PUBLIC '-//W3C//DTD HTML 4.01//EN' \
@@ -31,34 +31,34 @@ module Markout::HTML
   end
 
   {% for t in VOID_TAGS %}
-    private def {{ t.id }}(**attr) : Nil
+    def {{ t.id }}(**attr) : Nil
       tag {{ t }}, **attr
     end
   {% end %}
 
   {% for t in NON_VOID_TAGS %}
-    private def {{ t.id }}(**attr) : Nil
+    def {{ t.id }}(**attr) : Nil
       tag {{ t }}, **attr do end
     end
 
-    private def {{ t.id }}(__ label : String, **attr) : Nil
+    def {{ t.id }}(__ label : String, **attr) : Nil
       tag {{ t }}, **attr do text(label) end
     end
 
-    private def {{ t.id }}(**attr, &b : Proc(Nil)) : Nil
+    def {{ t.id }}(**attr, &b : Proc(Nil)) : Nil
       tag {{ t }}, **attr, &b
     end
   {% end %}
 
-  private def tag(__ name : Symbol, **attr) : Nil
+  def tag(__ name : Symbol, **attr) : Nil
     tag name.to_s, **attr
   end
 
-  private def tag(__ name : Symbol, **attr, &b : Proc(Nil)) : Nil
+  def tag(__ name : Symbol, **attr, &b : Proc(Nil)) : Nil
     tag name.to_s, **attr, &b
   end
 
-  private def tag(__ name : String, **attr) : Nil
+  def tag(__ name : String, **attr) : Nil
     if jsx?(name) || xhtml?
       raw "<#{name}#{build_attrs(attr)} />"
     else
@@ -66,25 +66,34 @@ module Markout::HTML
     end
   end
 
-  private def tag(__ name : String, **attr, & : Proc(Nil)) : Nil
+  def tag(__ name : String, **attr, & : Proc(Nil)) : Nil
     raw "<#{name}#{build_attrs(attr)}>"
     yield
     raw "</#{name}>"
   end
 
-  private def mount(component : Component.class, *args, **kwargs) : Nil
+  def mount(
+    component : Component.class,
+    *args,
+    **kwargs,
+    &b : Proc(Component, Nil)
+  ) : Nil
+    mount component.new(*args, **kwargs, &b)
+  end
+
+  def mount(component : Component.class, *args, **kwargs) : Nil
     mount component.new(*args, **kwargs)
   end
 
-  private def mount(component : Component) : Nil
+  def mount(component : Component) : Nil
     raw component
   end
 
-  private def text(text) : Nil
+  def text(text) : Nil
     raw esc(text)
   end
 
-  private def raw(text) : Nil
+  def raw(text) : Nil
     @view << text.to_s
   end
 

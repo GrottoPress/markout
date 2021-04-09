@@ -214,20 +214,31 @@ end
 #puts MySecondPage.new(["Kofi", "Ama", "Nana"])
 ```
 
-A component may accept named arguments:
+A component may accept named arguments and blocks:
 
 ```crystal
 # Create the component
 struct MyLinkComponent < BaseComponent
-  def initialize(label : String, url : String, **opts) : Nil
+  def initialize(label : String, url : String, **opts)
     render(label, url, **opts)
   end
 
-  private def render(label : String, url : String, **opts) : Nil
+  def initialize(url : String, **opts, &b : Proc(Component, Nil))
+    render(label, url, **opts, &b)
+  end
+
+  private def render(label : String, url : String, **opts)
     args = opts.merge({href: url})
     args = {class: "link"}.merge(args)
 
     a label, **args
+  end
+
+  private def render(url : String, **opts, &b : Proc(Component, Nil))
+    args = opts.merge({href: url})
+    args = {class: "link"}.merge(args)
+
+    a **args do b.call(self) end
   end
 end
 
@@ -235,7 +246,18 @@ end
 struct MyThirdPage < BasePage
   private def body_content : Nil
     div class: "link-wrap" do
-      mount MyLinkComponent, "Abc", "http://ab.c", class: "x-link", "data-foo": "bar"
+      mount MyLinkComponent, "Abc", "http://ab.c", "data-foo": "bar"
+    end
+  end
+end
+
+# OR mount with a block
+struct MyThirdPage < BasePage
+  private def body_content : Nil
+    div class: "link-wrap" do
+      mount MyLinkComponent, "http://ab.c", "data-foo": "bar" do |html|
+        html.text("Abc")
+      end
     end
   end
 end
@@ -243,7 +265,7 @@ end
 puts MyThirdPage.new
 # => ...
 #    <div class='link-wrap'>\
-#      <a class='x-link' data-foo='bar' href='http://ab.c'>Abc</a>\
+#      <a data-foo='bar' href='http://ab.c'>Abc</a>\
 #    </div>
 #    ...
 ```
