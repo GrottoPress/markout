@@ -11,6 +11,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Add support for [Vue JS](https://vuejs.org) template syntax
 - Add support for block components
 
+### Changed
+- Bump minimum required *Crystal* version to v1.0
+
 ## Remove
 - Remove support for [Onyx framework](https://onyxframework.org)
 
