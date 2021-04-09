@@ -68,12 +68,12 @@ abstract struct BasePage
   # Set HTML version
   #
   # Versions:
-  #   `Version::HTML_5` (default)
-  #   `Version::XHTML_1_1`
-  #   `Version::XHTML_1_0`
-  #   `Version::HTML_4_01`
-  #private def version : Version
-  #  Version::XHTML_1_1
+  #   `HtmlVersion::HTML_5` (default)
+  #   `HtmlVersion::XHTML_1_1`
+  #   `HtmlVersion::XHTML_1_0`
+  #   `HtmlVersion::HTML_4_01`
+  #private def html_version : HtmlVersion
+  #  HtmlVersion::XHTML_1_1
   #end
 
   private def body_tag_attr : NamedTuple
@@ -169,13 +169,9 @@ abstract struct BaseComponent
 
   # Set HTML version
   #
-  # Versions:
-  #   `Version::HTML_5` (default)
-  #   `Version::XHTML_1_1`
-  #   `Version::XHTML_1_0`
-  #   `Version::HTML_4_01`
-  #private def version : Version
-  #  Version::XHTML_1_1
+  # Same as for pages.
+  #private def html_version : HtmlVersion
+  #  HtmlVersion::XHTML_1_1
   #end
 end
 

@@ -1,6 +1,6 @@
 struct MyXhtml11Page < BasePage
-  private def version : Version
-    Version::XHTML_1_1
+  private def html_version : HtmlVersion
+    HtmlVersion::XHTML_1_1
   end
 
   private def head_content : Nil

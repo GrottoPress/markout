@@ -7,7 +7,7 @@ require "./markout/**"
 module Markout
   @view = IO::Memory.new
 
-  enum Version
+  enum HtmlVersion
     HTML_4_01
     XHTML_1_0
     XHTML_1_1
@@ -15,7 +15,7 @@ module Markout
   end
 
   protected def doctype : Nil
-    case version
+    case html_version
     when .html_4_01?
       raw "<!DOCTYPE HTML PUBLIC '-//W3C//DTD HTML 4.01//EN' \
         'http://www.w3.org/TR/html4/strict.dtd'>"
@@ -97,8 +97,8 @@ module Markout
     @view << text.to_s
   end
 
-  private def version : Version
-    Version::HTML_5
+  private def html_version : HtmlVersion
+    HtmlVersion::HTML_5
   end
 
   private def build_attrs(attrs = NamedTuple.new) : String
@@ -120,7 +120,7 @@ module Markout
   end
 
   private def xhtml? : Bool
-    version.to_s.starts_with? "XHTML_"
+    html_version.to_s.starts_with? "XHTML_"
   end
 
   private def jsx?(name : String) : Bool

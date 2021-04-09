@@ -14,6 +14,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Changed
 - Bump minimum required *Crystal* version to v1.0
 - Rename `Markout::HTML` to just `Markout`.
+- Rename `Markout::Version` to `Markout::HtmlVersion`
+- Rename `Markout#version` to `Markout#html_version`
 
 ## Remove
 - Remove support for [Onyx framework](https://onyxframework.org)

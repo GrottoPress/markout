@@ -1,6 +1,6 @@
 struct MyHtml401Page < BasePage
-  private def version : Version
-    Version::HTML_4_01
+  private def html_version : HtmlVersion
+    HtmlVersion::HTML_4_01
   end
 
   private def head_content : Nil
