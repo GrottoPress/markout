@@ -310,7 +310,3 @@ Check out the following, if *Markout* does not fit your needs:
 1. Commit your changes: `git commit`
 1. Push to the branch: `git push origin my-new-feature`
 1. Submit a new *Pull Request* against the `GrottoPress:master` branch.
-
-## Security
-
-Kindly report suspected security vulnerabilities in private, via contact details outlined in this repository's `.security.txt` file.
