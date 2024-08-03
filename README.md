@@ -241,7 +241,7 @@ puts MyThirdPage.new
 #    ...
 ```
 
-A component may accept named arguments:
+To accept arbitrary arguments, you would have to do something different:
 
 ```crystal
 # Create the component
