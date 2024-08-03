@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Add `Markout::Component#render` method
 
 ### Changed
-- Accept arbitrary attribute names
+- Accept arbitrary HTML attribute names
 
 ## [1.0.0] - 2023-05-29
 
