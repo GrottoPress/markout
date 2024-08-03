@@ -175,13 +175,12 @@ end
 
 # Create the component
 struct MyFirstComponent < BaseComponent
-  def initialize(users : Array(String))
-    render(users)
+  def initialize(@users : Array(String))
   end
 
-  private def render(users : Array(String)) : Nil
+  private def render : Nil
     ul class: "users" do
-      users.each do |user|
+      @users.each do |user|
         li user, class: "user"
         # Same as `li class: "user" do text(user) end`
       end
@@ -208,31 +207,54 @@ end
 #puts MySecondPage.new(["Kofi", "Ama", "Nana"])
 ```
 
-A component may accept named arguments and blocks:
+A component may accept a block:
 
 ```crystal
 # Create the component
 struct MyLinkComponent < BaseComponent
-  def initialize(label : String, url : String, **opts)
-    render(label, url, **opts)
+  def initialize(@url : String, &@block : Proc(Component, Nil))
   end
 
-  def initialize(url : String, **opts, &b : Proc(Component, Nil))
-    render(label, url, **opts, &b)
+  private def render : Nil
+    a href: @url, class: "link", "data-foo": "bar" do
+      @block.call(self)
+    end
+  end
+end
+
+# Mount the component
+struct MyThirdPage < BasePage
+  private def body_content : Nil
+    div class: "link-wrap" do
+      mount MyLinkComponent, "http://ab.c" do |html|
+        html.text("Abc")
+      end
+    end
+  end
+end
+
+puts MyThirdPage.new
+# => ...
+#    <div class='link-wrap'>\
+#      <a href='http://ab.c' class='link' data-foo='bar'>Abc</a>\
+#    </div>
+#    ...
+```
+
+A component may accept named arguments:
+
+```crystal
+# Create the component
+struct MyLinkComponent < BaseComponent
+  def initialize(@label : String, @url : String, **opts)
+    render_args(**opts)
   end
 
-  private def render(label : String, url : String, **opts)
-    args = opts.merge({href: url})
+  private def render_args(**opts)
+    args = opts.merge({href: @url})
     args = {class: "link"}.merge(args)
 
-    a label, **args
-  end
-
-  private def render(url : String, **opts, &b : Proc(Component, Nil))
-    args = opts.merge({href: url})
-    args = {class: "link"}.merge(args)
-
-    a **args do b.call(self) end
+    a @label, **args
   end
 end
 
@@ -241,17 +263,6 @@ struct MyThirdPage < BasePage
   private def body_content : Nil
     div class: "link-wrap" do
       mount MyLinkComponent, "Abc", "http://ab.c", "data-foo": "bar"
-    end
-  end
-end
-
-# OR mount with a block
-struct MyThirdPage < BasePage
-  private def body_content : Nil
-    div class: "link-wrap" do
-      mount MyLinkComponent, "http://ab.c", "data-foo": "bar" do |html|
-        html.text("Abc")
-      end
     end
   end
 end

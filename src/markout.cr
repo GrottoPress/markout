@@ -5,8 +5,6 @@ require "./markout/tags"
 require "./markout/**"
 
 module Markout
-  @view = IO::Memory.new
-
   enum HtmlVersion
     HTML_4_01
     XHTML_1_0
@@ -14,7 +12,9 @@ module Markout
     HTML_5
   end
 
-  protected def doctype : Nil
+  @view = IO::Memory.new
+
+  private def doctype : Nil
     case html_version
     when .html_4_01?
       raw "<!DOCTYPE HTML PUBLIC '-//W3C//DTD HTML 4.01//EN' \
@@ -45,8 +45,8 @@ module Markout
       tag {{ t }}, **attr do text(label) end
     end
 
-    protected def {{ t.id }}(**attr, &b : Proc(Nil)) : Nil
-      tag {{ t }}, **attr, &b
+    protected def {{ t.id }}(**attr, & : Proc(Nil)) : Nil
+      tag({{ t }}, **attr) { yield }
     end
   {% end %}
 
@@ -54,8 +54,8 @@ module Markout
     tag name.to_s, **attr
   end
 
-  protected def tag(__ name : Symbol, **attr, &b : Proc(Nil)) : Nil
-    tag name.to_s, **attr, &b
+  protected def tag(__ name : Symbol, **attr, & : Proc(Nil)) : Nil
+    tag(name.to_s, **attr) { yield }
   end
 
   protected def tag(__ name : String, **attr) : Nil
@@ -72,13 +72,21 @@ module Markout
     raw "</#{name}>"
   end
 
+  protected def text(text) : Nil
+    raw esc(text)
+  end
+
+  protected def raw(text) : Nil
+    @view << text
+  end
+
   private def mount(
     component : Component.class,
     *args,
     **kwargs,
-    &b : Proc(Component, Nil)
+    &block : Proc(Component, Nil)
   ) : Nil
-    mount component.new(*args, **kwargs, &b)
+    mount component.new(*args, **kwargs, &block)
   end
 
   private def mount(component : Component.class, *args, **kwargs) : Nil
@@ -87,14 +95,6 @@ module Markout
 
   private def mount(component : Component) : Nil
     raw component
-  end
-
-  protected def text(text) : Nil
-    raw esc(text)
-  end
-
-  protected def raw(text) : Nil
-    @view << text
   end
 
   private def html_version : HtmlVersion

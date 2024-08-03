@@ -1,12 +1,10 @@
 struct MyBlockComponent < BaseComponent
-  def initialize(url : String, **opts, &b : Proc(Component, Nil))
-    render(url, **opts, &b)
+  def initialize(@url : String, @class : String, &@block : Proc(Component, Nil))
   end
 
-  private def render(url : String, **opts, &b : Proc(Component, Nil))
-    args = opts.merge({href: url})
-    args = {class: "link"}.merge(args)
-
-    a **args do b.call(self) end
+  private def render : Nil
+    a href: @url, class: @class do
+      @block.call(self)
+    end
   end
 end

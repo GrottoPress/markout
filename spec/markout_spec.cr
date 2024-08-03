@@ -109,7 +109,7 @@ describe Markout do
           </header>\
           <p data-foo='bar'>This is a HTML 5 page</p>\
           <div class='user'>\
-            <a class='user-link' href='#kofi'>Kofi</a>\
+            <a href='#kofi' class='user-link'>Kofi</a>\
           </div>\
           <footer id='footer'>\
             <!-- I'm unescaped -->\

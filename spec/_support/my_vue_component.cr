@@ -1,5 +1,5 @@
 struct MyVueComponent < BaseComponent
-  def initialize : Nil
+  private def render : Nil
     render_html
     render_js
   end
