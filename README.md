@@ -305,13 +305,6 @@ Apart from calling regular HTML tags as methods, the following methods are avail
 - `#text(text : String)`: Use this to render escaped text
 - `#raw(text : String)`: Use this render unescaped text
 
-## Alternatives
-
-Check out the following, if *Markout* does not fit your needs:
-
-- [crystal-lang/html_builder](https://github.com/crystal-lang/html_builder)
-- [Lucky framework](https://luckyframework.org/guides/rendering-html/) comes with an in-built html builder.
-
 ## Contributing
 
 1. [Fork it](https://github.com/GrottoPress/markout/fork)
