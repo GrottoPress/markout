@@ -302,8 +302,8 @@ end
 
 Apart from calling regular HTML tags as methods, the following methods are available:
 
-- `#text(text : String)`: Use this to render escaped text
 - `#raw(text : String)`: Use this render unescaped text
+- `#text(text : String)`: Use this to render escaped text
 
 ## Contributing
 
