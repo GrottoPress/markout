@@ -94,7 +94,7 @@ module Markout
   end
 
   protected def raw(text) : Nil
-    @view << text.to_s
+    @view << text
   end
 
   private def html_version : HtmlVersion
@@ -102,15 +102,16 @@ module Markout
   end
 
   private def build_attrs(attrs = NamedTuple.new) : String
-    attr_str = attrs.map do |key, val|
-      if val.nil?
-        xhtml? ? "#{key}='#{esc(key)}'" : key
-      else
-        "#{key}='#{esc(val)}'"
+    String.build do |io|
+      attrs.map do |key, val|
+        io << ' '
+        io << if val.nil?
+            xhtml? ? "#{key}='#{esc(key)}'" : key
+          else
+            "#{key}='#{esc(val)}'"
+          end
       end
     end
-
-    attr_str.empty? ? "" : " #{attr_str.join(' ')}"
   end
 
   private def esc(text) : String
