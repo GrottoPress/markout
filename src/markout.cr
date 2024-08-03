@@ -103,12 +103,10 @@ module Markout
 
   private def build_attrs(attrs = NamedTuple.new) : String
     attr_str = attrs.map do |key, val|
-      k = key.to_s.gsub /[^a-zA-Z0-9\-\_\@\:\.]/, '-'
-
       if val.nil?
-        xhtml? ? "#{k}='#{esc(k)}'" : k
+        xhtml? ? "#{key}='#{esc(key)}'" : key
       else
-        "#{k}='#{esc(val)}'"
+        "#{key}='#{esc(val)}'"
       end
     end
 
