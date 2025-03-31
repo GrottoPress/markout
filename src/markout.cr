@@ -60,20 +60,33 @@ module Markout
 
   protected def tag(__ name : String, **attr) : Nil
     if jsx?(name) || xhtml?
-      raw "<#{name}#{build_attrs(attr)} />"
+      raw "<"
+      raw name
+      attrs attr
+      raw " />"
     else
-      raw "<#{name}#{build_attrs(attr)}>"
+      raw "<"
+      raw name
+      attrs attr
+      raw ">"
     end
   end
 
   protected def tag(__ name : String, **attr, & : Proc(Nil)) : Nil
-    raw "<#{name}#{build_attrs(attr)}>"
+    raw "<"
+    raw name
+    attrs attr
+    raw ">"
+
     yield
-    raw "</#{name}>"
+
+    raw "</"
+    raw name
+    raw ">"
   end
 
   protected def text(text) : Nil
-    raw esc(text)
+    HTML.escape text, @view
   end
 
   protected def raw(text) : Nil
@@ -101,21 +114,25 @@ module Markout
     HtmlVersion::HTML_5
   end
 
-  private def build_attrs(attrs = NamedTuple.new) : String
-    String.build do |io|
-      attrs.map do |key, val|
-        io << ' '
-        io << if val.nil?
-            xhtml? ? "#{key}='#{esc(key)}'" : key
-          else
-            "#{key}='#{esc(val)}'"
-          end
+  private def attrs(attrs = NamedTuple.new) : Nil
+    attrs.map do |key, value|
+      raw ' '
+      raw key
+
+      if value.nil? && xhtml?
+        raw "="
+        raw "'"
+        raw key
+        raw "'"
+      end
+
+      unless value.nil?
+        raw "="
+        raw "'"
+        text value
+        raw "'"
       end
     end
-  end
-
-  private def esc(text) : String
-    HTML.escape text.to_s
   end
 
   private def xhtml? : Bool
