@@ -89,7 +89,7 @@ abstract struct BasePage
       p "An awesome description", class: "description"
     end
 
-    main id: main do
+    main id: "main" do
       body_content
     end
 
