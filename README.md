@@ -24,7 +24,7 @@ end
 # => <h1 class='heading'>A first-level heading</h1>
 
 ul id: "a-wrapper", class: "list-wrap" do
-  ["aa", "bb", "cc"].each do |x|
+  {"aa", "bb", "cc"}.each do |x|
     li x, class: "list-item"
   end
 end
